@@ -1,0 +1,605 @@
+<!doctype html><html lang=ko><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><meta http-equiv=x-ua-compatible content="IE=edge, chrome=1"><title>내 첫 리눅스 커널 기여 - JSYoo5B.Dev();</title><meta name=Description content="Blog of JaeSang Yoo, the programmer."><meta property="og:title" content="내 첫 리눅스 커널 기여"><meta property="og:description" content="리눅스 커널 소스에 첫 기여를 한 기념으로 어떻게 기여하게 되었는지 그 과정을 공유한다. 사실 코드를 수정한 것도 아니고, 고작 1줄에 불과하기때문에 그렇게 대단한 것"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.jsyoo5b.dev/posts/linux-kernel/my-first-commit/"><meta property="article:published_time" content="2020-12-09T23:37:20+09:00"><meta property="article:modified_time" content="2020-12-09T23:37:20+09:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="내 첫 리눅스 커널 기여"><meta name=twitter:description content="리눅스 커널 소스에 첫 기여를 한 기념으로 어떻게 기여하게 되었는지 그 과정을 공유한다. 사실 코드를 수정한 것도 아니고, 고작 1줄에 불과하기때문에 그렇게 대단한 것"><meta name=application-name content="JSYoo5B.Dev();"><meta name=apple-mobile-web-app-title content="JSYoo5B.Dev();"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.jsyoo5b.dev/posts/linux-kernel/my-first-commit/><link rel=prev href=https://blog.jsyoo5b.dev/posts/review/book-joel-on-software/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"내 첫 리눅스 커널 기여","inLanguage":"ko","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.jsyoo5b.dev\/posts\/linux-kernel\/my-first-commit\/"},"genre":"posts","keywords":"리눅스, 커널, git, sphinx","wordcount":6660,"url":"https:\/\/blog.jsyoo5b.dev\/posts\/linux-kernel\/my-first-commit\/","datePublished":"2020-12-09T23:37:20+09:00","dateModified":"2020-12-09T23:37:20+09:00","publisher":{"@type":"Organization","name":"유재상"},"author":{"@type":"Person","name":"유재상"},"description":""}</script></head><body header-desktop header-mobile><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':('dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark'))&&document.body.setAttribute('theme','dark');</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=JSYoo5B.Dev();>JSYoo5B.Dev();</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/about/>소개 </a><a class=menu-item href=/posts/>블로그 </a><a class=menu-item href=/categories/>카테고리 </a><a class=menu-item href=/tags/>태그 </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item language" title="언어 변경">한국어<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select id=language-select-desktop onchange="location=this.value;"><option value=/posts/linux-kernel/my-first-commit/ selected>한국어</option></select>
+</a><a href=javascript:void(0); class="menu-item theme-switch" title="테마 변경"><i class="fas fa-adjust fa-fw"></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=JSYoo5B.Dev();>JSYoo5B.Dev();</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/about/>소개</a><a class=menu-item href=/posts/>블로그</a><a class=menu-item href=/categories/>카테고리</a><a class=menu-item href=/tags/>태그</a><a href=javascript:void(0); class="menu-item theme-switch" title="테마 변경">
+<i class="fas fa-adjust fa-fw"></i></a><a href=javascript:void(0); class=menu-item title="언어 변경">한국어<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select onchange="location=this.value;"><option value=/posts/linux-kernel/my-first-commit/ selected>한국어</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>목차</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">내 첫 리눅스 커널 기여</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw"></i>유재상</a></span>&nbsp;<span class=post-category>분류: <a href=/categories/%EA%B0%9C%EB%B0%9C/><i class="far fa-folder fa-fw"></i>개발</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2020-12-09>2020-12-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;6660 단어&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;읽는데 약 14분&nbsp;</div></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>목차</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#어떻게-기여할-만한-것을-찾았는가>어떻게 기여할 만한 것을 찾았는가?</a><ul><li><a href=#커널의-make-htmldocs>커널의 make htmldocs</a></li><li><a href=#sphinx-설치-후-재시도>Sphinx 설치 후 재시도</a></li></ul></li><li><a href=#sphinx-문서-생성의-문제점-분석>Sphinx 문서 생성의 문제점 분석</a><ul><li><a href=#requirementstxt-확인>requirements.txt 확인</a></li><li><a href=#kfigurepy에서-six-부분-기록-확인하기>kfigure.py에서 six 부분 기록 확인하기</a></li><li><a href=#requirementstxt의-하위-의존성-패키지-찾아보기>requirements.txt의 하위 의존성 패키지 찾아보기</a></li><li><a href=#왜-이-문제를-발견하지-못했을까>왜 이 문제를 발견하지 못했을까?</a></li></ul></li><li><a href=#문제-해결-및-commit>문제 해결 및 commit</a></li><li><a href=#결과>결과</a></li></ul></nav></div></div><div class=content id=content><p>리눅스 커널 소스에 첫 기여를 한 기념으로 어떻게 기여하게 되었는지 그 과정을 공유한다. 사실 코드를 수정한 것도 아니고, 고작 1줄에 불과하기때문에 그렇게 대단한 것은 아니라고 생각하지만, 그 기여를 위해 어떤 판단을 했고, 어떻게 자료 조사를 했는지에 대한 경험을 공유하고자 한다.</p><p>(실제 commit이 mainline에 적용되면 해당 commit도 링크로 올리도록 하겠다.)</p><h2 id=어떻게-기여할-만한-것을-찾았는가>어떻게 기여할 만한 것을 찾았는가?</h2><p>리눅스 커널에서는 관련 문서를 Documentation/ 에서 관리하고 있다. 보통 rst나 txt로 각 주제에 대한 글을 작성해 놓은 상태다.</p><p>물론 해당 문서 파일들을 더 효과적인 방식으로 변환하는 기능도 제공한다. 예를 들어 make pdfdocs, make htmldocs 등이 있다. 말 그대로 pdf문서로 변환해주거나, HTML로 변환하여 <a href=https://www.kernel.org/doc/html/latest/ target=_blank rel="noopener noreffer">웹에서 제공</a>할 수 있게 해준다.</p><p>현재 iamroot 커널 스터디를 진행하고 있는데, 추후 개념 관련 정리를 rst로 작성하여 웹으로 배포하면 좋겠다는 생각이 들어서 htmldocs로 변환하는 부분을 실험해봤다. 그런데 오류 메시지만으로는 해결할 수 없는 상태가 발생했고, 이를 수정하는 과정을 기여할 수 있었다.</p><h3 id=커널의-make-htmldocs>커널의 make htmldocs</h3><p>커널에서 문서를 HTML로 변환할 때 <a href=https://www.sphinx-doc.org/en/master/ target=_blank rel="noopener noreffer">sphinx</a>라는 도구를 사용한다.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:block;width:100%;background-color:#3c3d38>$ make htmldocs
+</span>Documentation/Makefile:30: The &#39;sphinx-build&#39; command was not found. Make sure you have Sphinx installed and in PATH, or set the SPHINXBUILD make variable to point to the full path of the &#39;sphinx-build&#39; executable.
+
+Detected OS: Ubuntu 20.04.1 LTS.
+Warning: better to also install &#34;convert&#34;.
+Warning: better to also install &#34;dot&#34;.
+Warning: better to also install &#34;dvipng&#34;.
+Warning: better to also install &#34;fonts-noto-cjk&#34;.
+Warning: better to also install &#34;latexmk&#34;.
+Warning: better to also install &#34;rsvg-convert&#34;.
+You should run:
+
+        sudo apt-get install imagemagick graphviz dvipng fonts-noto-cjk latexmk librsvg2-bin
+Warning: It is recommended at least Sphinx version 1.7.9.
+         If you want pdf, you need at least 2.4.4.
+Note: It is recommended at least Sphinx version 2.4.4 if you need PDF support.
+Can&#39;t build as 1 mandatory dependency is missing at ./scripts/sphinx-pre-install line 853.
+        /usr/bin/python3 -m venv sphinx_2.4.4
+        . sphinx_2.4.4/bin/activate
+        pip install -r ./Documentation/sphinx/requirements.txt
+
+If you want to exit the virtualenv, you can use:
+        deactivate
+
+make[1]: *** [Documentation/Makefile:32: htmldocs] Error 2
+make: *** [Makefile:1658: htmldocs] Error 2
+</code></pre></div><p>만약 sphinx가 설치되어 있지 않다면 위와 같이 에러문이 출력된다. 각 OS에 따라 sphinx, 기타 관련 추천 패키지를 설치하기 위한 명령을 알려준다. 참고로 sphinx는 python 패키지로 설치되기 때문에 효과적인 관리를 위해 <a href=https://virtualenv.pypa.io/en/latest/ target=_blank rel="noopener noreffer">virtualenv</a>를 생성하고, 그 위에서 <a href=https://pip.pypa.io/en/stable/ target=_blank rel="noopener noreffer">pip</a>를 통해 문서 생성에 필요한 패키지를 자동으로 설치시킨다. 필요한 패키지는 <a href=https://pip.pypa.io/en/stable/user_guide/#requirements-files target=_blank rel="noopener noreffer">requirements.txt</a> 안에 정의되어 있다.</p><h3 id=sphinx-설치-후-재시도>Sphinx 설치 후 재시도</h3><p>위의 명령과 비슷하게 virtualenv를 설정하고 필요 패키지를 설치한 다음 다시 make htmldocs를 시도해보자. (나는 git 관리의 편의를 위해 virtualenv 디렉토리를 .sphinx로 변경했다.)</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:block;width:100%;background-color:#3c3d38>$ /usr/bin/python3 -m venv .sphinx
+</span><span style=display:block;width:100%;background-color:#3c3d38>$ . .sphinx/bin/activate
+</span><span style=display:block;width:100%;background-color:#3c3d38>$ pip install -r ./Documentation/sphinx/requirements.txt
+</span>Collecting docutils
+  Downloading docutils-0.16-py2.py3-none-any.whl (548 kB)
+     |████████████████████████████████| 548 kB 1.9 MB/s
+Collecting Sphinx==2.4.4
+  Downloading Sphinx-2.4.4-py3-none-any.whl (2.7 MB)
+     |████████████████████████████████| 2.7 MB 11.2 MB/s
+Collecting sphinx_rtd_theme
+  Downloading sphinx_rtd_theme-0.5.0-py2.py3-none-any.whl (10.8 MB)
+     |████████████████████████████████| 10.8 MB 11.6 MB/s
+ : # (다른 설치 기록은 생략함)
+Successfully installed Jinja2-2.11.2 MarkupSafe-1.1.1 Pygments-2.7.3 Sphinx-2.4.4 alabaster-0.7.12 babel-2.9.0 certifi-2020.12.5 chardet-3.0.4 docutils-0.16 idna-2.10 imagesize-1.2.0 packaging-20.7 pyparsing-2.4.7 pytz-2020.4 requests-2.25.0 snowballstemmer-2.0.0 sphinx-rtd-theme-0.5.0 sphinxcontrib-applehelp-1.0.2 sphinxcontrib-devhelp-1.0.2 sphinxcontrib-htmlhelp-1.0.3 sphinxcontrib-jsmath-1.0.1 sphinxcontrib-qthelp-1.0.3 sphinxcontrib-serializinghtml-1.1.4 urllib3-1.26.2
+<span style=display:block;width:100%;background-color:#3c3d38>$ make htmldocs
+</span>  SPHINX  htmldocs --&gt; file:///home/jsyoo5b/Workspace/Kernel/iamroot/Documentation/output
+  PARSE   include/uapi/linux/dvb/audio.h
+  PARSE   include/uapi/linux/dvb/ca.h
+  PARSE   include/uapi/linux/dvb/dmx.h
+  PARSE   include/uapi/linux/dvb/frontend.h
+  PARSE   include/uapi/linux/dvb/net.h
+  PARSE   include/uapi/linux/dvb/video.h
+  PARSE   include/uapi/linux/videodev2.h
+  PARSE   include/uapi/linux/media.h
+  PARSE   include/uapi/linux/cec.h
+  PARSE   include/uapi/linux/lirc.h
+Running Sphinx v2.4.4
+
+Extension error:
+Could not import extension kfigure (exception: No module named &#39;six&#39;)
+enabling CJK for LaTeX builder
+make[1]: *** [Documentation/Makefile:82: htmldocs] Error 2
+make: *** [Makefile:1658: htmldocs] Error 2
+</code></pre></div><p>문서를 생성하던 도중 에러가 발생한다. 하지만 어떻게 해결해야 하는지에 대한 해결법은 나오지 않는다. 이 부분이 내가 기여한 이슈의 시작점이다.</p><h2 id=sphinx-문서-생성의-문제점-분석>Sphinx 문서 생성의 문제점 분석</h2><p>위의 make htmldocs에서 에러가 난 부분만 다시 집중해보자.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:block;width:100%;background-color:#3c3d38>$ make htmldocs
+</span>  SPHINX  htmldocs --&gt; file:///home/jsyoo5b/Workspace/Kernel/iamroot/Documentation/output
+  PARSE   include/uapi/linux/dvb/audio.h
+  PARSE   include/uapi/linux/dvb/ca.h
+  PARSE   include/uapi/linux/dvb/dmx.h
+  PARSE   include/uapi/linux/dvb/frontend.h
+  PARSE   include/uapi/linux/dvb/net.h
+  PARSE   include/uapi/linux/dvb/video.h
+  PARSE   include/uapi/linux/videodev2.h
+  PARSE   include/uapi/linux/media.h
+  PARSE   include/uapi/linux/cec.h
+  PARSE   include/uapi/linux/lirc.h
+Running Sphinx v2.4.4
+
+Extension error:
+<span style=display:block;width:100%;background-color:#3c3d38>Could not import extension kfigure (exception: No module named &#39;six&#39;)
+</span>enabling CJK for LaTeX builder
+make[1]: *** [Documentation/Makefile:82: htmldocs] Error 2
+make: *** [Makefile:1658: htmldocs] Error 2
+</code></pre></div><p>kfigure라는 extension을 import할수 없는데, 그 이유는 six란 모듈을 찾을수 없기 때문이라고 한다. 일단 kfigure가 뭔지 확인해보자.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text>$ ls Documentation/sphinx/
+automarkup.py  kernel_include.py  load_config.py          parse-headers.pl
+cdomain.py     kernellog.py       maintainers_include.py  requirements.txt
+kerneldoc.py   kfigure.py         parallel-wrapper.sh     rstFlatTable.py
+</code></pre></div><p>kfigure는 Documentation/sphinx/에 작성된 모듈로, rst에서 그린 그림을 이미지로 변환해주는 모듈이다. 그럼 해당 파일의 내용에서 six가 사용되는 부분을 확인해보자.</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">57
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">58
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">59
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">60
+</span><span style=display:block;width:100%;background-color:#3c3d38><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">61
+</span></span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">62
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">63
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">64
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">65
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">66
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">67
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">68
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">69
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">70
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">71
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">72
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">73
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">74
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">75
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">76
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">77
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">78
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">79
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">80
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=color:#f92672>from</span> docutils.parsers.rst.directives <span style=color:#f92672>import</span> images
+<span style=color:#f92672>import</span> sphinx
+
+<span style=color:#f92672>from</span> sphinx.util.nodes <span style=color:#f92672>import</span> clean_astext
+<span style=display:block;width:100%;background-color:#3c3d38><span style=color:#f92672>from</span> six <span style=color:#f92672>import</span> iteritems
+</span>
+<span style=color:#f92672>import</span> kernellog
+
+PY3 <span style=color:#f92672>=</span> sys<span style=color:#f92672>.</span>version_info[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>==</span> <span style=color:#ae81ff>3</span>
+
+<span style=color:#66d9ef>if</span> PY3:
+    _unicode <span style=color:#f92672>=</span> str
+<span style=color:#66d9ef>else</span>:
+    _unicode <span style=color:#f92672>=</span> unicode
+
+<span style=color:#75715e># Get Sphinx version</span>
+major, minor, patch <span style=color:#f92672>=</span> sphinx<span style=color:#f92672>.</span>version_info[:<span style=color:#ae81ff>3</span>]
+<span style=color:#66d9ef>if</span> major <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>and</span> minor <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>3</span>:
+    <span style=color:#75715e># patches.Figure only landed in Sphinx 1.4</span>
+    <span style=color:#f92672>from</span> sphinx.directives.patches <span style=color:#f92672>import</span> Figure  <span style=color:#75715e># pylint: disable=C0413</span>
+<span style=color:#66d9ef>else</span>:
+    Figure <span style=color:#f92672>=</span> images<span style=color:#f92672>.</span>Figure
+
+__version__  <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;1.0.0&#39;</span>
+</code></pre></td></tr></table></div></div><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">528
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">529
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">530
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">531
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">532
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">533
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">534
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">535
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">536
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">537
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">538
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">539
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">540
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">541
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">542
+</span><span style=display:block;width:100%;background-color:#3c3d38><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">543
+</span></span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">544
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">545
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">546
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">547
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">548
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">549
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">550
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">551
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">552
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">553
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">554
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">555
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">556
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">557
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>add_kernel_figure_to_std_domain</span>(app, doctree):
+    <span style=color:#e6db74>&#34;&#34;&#34;Add kernel-figure anchors to &#39;std&#39; domain.
+</span><span style=color:#e6db74>
+</span><span style=color:#e6db74>    The ``StandardDomain.process_doc(..)`` method does not know how to resolve
+</span><span style=color:#e6db74>    the caption (label) of ``kernel-figure`` directive (it only knows about
+</span><span style=color:#e6db74>    standard nodes, e.g. table, figure etc.). Without any additional handling
+</span><span style=color:#e6db74>    this will result in a &#39;undefined label&#39; for kernel-figures.
+</span><span style=color:#e6db74>
+</span><span style=color:#e6db74>    This handle adds labels of kernel-figure to the &#39;std&#39; domain labels.
+</span><span style=color:#e6db74>    &#34;&#34;&#34;</span>
+
+    std <span style=color:#f92672>=</span> app<span style=color:#f92672>.</span>env<span style=color:#f92672>.</span>domains[<span style=color:#e6db74>&#34;std&#34;</span>]
+    docname <span style=color:#f92672>=</span> app<span style=color:#f92672>.</span>env<span style=color:#f92672>.</span>docname
+    labels <span style=color:#f92672>=</span> std<span style=color:#f92672>.</span>data[<span style=color:#e6db74>&#34;labels&#34;</span>]
+
+<span style=display:block;width:100%;background-color:#3c3d38>    <span style=color:#66d9ef>for</span> name, explicit <span style=color:#f92672>in</span> iteritems(doctree<span style=color:#f92672>.</span>nametypes):
+</span>        <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> explicit:
+            <span style=color:#66d9ef>continue</span>
+        labelid <span style=color:#f92672>=</span> doctree<span style=color:#f92672>.</span>nameids[name]
+        <span style=color:#66d9ef>if</span> labelid <span style=color:#f92672>is</span> None:
+            <span style=color:#66d9ef>continue</span>
+        node <span style=color:#f92672>=</span> doctree<span style=color:#f92672>.</span>ids[labelid]
+
+        <span style=color:#66d9ef>if</span> node<span style=color:#f92672>.</span>tagname <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;kernel_figure&#39;</span>:
+            <span style=color:#66d9ef>for</span> n <span style=color:#f92672>in</span> node<span style=color:#f92672>.</span>next_node():
+                <span style=color:#66d9ef>if</span> n<span style=color:#f92672>.</span>tagname <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;caption&#39;</span>:
+                    sectname <span style=color:#f92672>=</span> clean_astext(n)
+                    <span style=color:#75715e># add label to std domain</span>
+                    labels[name] <span style=color:#f92672>=</span> docname, labelid, sectname
+                    <span style=color:#66d9ef>break</span>
+</code></pre></td></tr></table></div></div><p>확인해보니 <a href=https://pypi.org/project/six/ target=_blank rel="noopener noreffer">six</a>에서 <a href=https://six.readthedocs.io/index.html#six.iteritems target=_blank rel="noopener noreffer">iteritem</a> 함수를 사용하는데, 현재 virtualenv에서 설치한 패키지 중에는 six가 존재하지 않는 것 같다.</p><p>문제의 six 패키지에 대한 정보를 검색해보니 python2와 python3 사이의 호환성을 유지하기 위해 사용하는 모듈이라 한다. 그런데 왜 six는 자동으로 설치되지 않았을까?</p><h3 id=requirementstxt-확인>requirements.txt 확인</h3><p>일단 requirements.txt 파일을 확인해보자.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text>docutils
+Sphinx==2.4.4
+sphinx_rtd_theme
+</code></pre></div><p>설치 목록에 six가 없는 것을 알 수 있다. 하지만 지금 증상을 다른 사람들이 눈치채지 못했다는 것은, 저기 목록에 있는 패키지 중에 하나가 원래는 six를 자동으로 설치했을 것이다.</p><p>이전 설치기록을 보면 알 수 있듯이, 위 3가지 패키지를 설치하기 위해 그 패키지들이 필요로 하는 하위 의존성 있는 패키지들을 같이 설치한 것을 볼 수 있다.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:block;width:100%;background-color:#3c3d38>$ pip install -r ./Documentation/sphinx/requirements.txt
+</span>Collecting docutils
+<span style=display:block;width:100%;background-color:#3c3d38>  Downloading docutils-0.16-py2.py3-none-any.whl (548 kB)
+</span>     |████████████████████████████████| 548 kB 1.9 MB/s
+Collecting Sphinx==2.4.4
+<span style=display:block;width:100%;background-color:#3c3d38>  Downloading Sphinx-2.4.4-py3-none-any.whl (2.7 MB)
+</span>     |████████████████████████████████| 2.7 MB 11.2 MB/s
+Collecting sphinx_rtd_theme
+<span style=display:block;width:100%;background-color:#3c3d38>  Downloading sphinx_rtd_theme-0.5.0-py2.py3-none-any.whl (10.8 MB)
+</span>     |████████████████████████████████| 10.8 MB 11.6 MB/s
+Collecting Pygments&gt;=2.0
+  Downloading Pygments-2.7.3-py3-none-any.whl (950 kB)
+     |████████████████████████████████| 950 kB 6.4 MB/s
+Collecting babel!=2.0,&gt;=1.3
+  Downloading Babel-2.9.0-py2.py3-none-any.whl (8.8 MB)
+     |████████████████████████████████| 8.8 MB 11.8 MB/s
+Requirement already satisfied: setuptools in ./.sphinx/lib/python3.8/site-packages (from Sphinx==2.4.4-&gt;-r ./Documentation/sphinx/requirements.txt (line 2)) (44.0.0)
+Collecting requests&gt;=2.5.0
+  Downloading requests-2.25.0-py2.py3-none-any.whl (61 kB)
+     |████████████████████████████████| 61 kB 8.1 MB/s
+Collecting sphinxcontrib-serializinghtml
+  Downloading sphinxcontrib_serializinghtml-1.1.4-py2.py3-none-any.whl (89 kB)
+     |████████████████████████████████| 89 kB 8.1 MB/s
+Collecting sphinxcontrib-jsmath
+  Downloading sphinxcontrib_jsmath-1.0.1-py2.py3-none-any.whl (5.1 kB)
+Collecting sphinxcontrib-htmlhelp
+  Downloading sphinxcontrib_htmlhelp-1.0.3-py2.py3-none-any.whl (96 kB)
+     |████████████████████████████████| 96 kB 6.3 MB/s
+Collecting packaging
+  Downloading packaging-20.7-py2.py3-none-any.whl (35 kB)
+Collecting alabaster&lt;0.8,&gt;=0.7
+  Downloading alabaster-0.7.12-py2.py3-none-any.whl (14 kB)
+Collecting sphinxcontrib-devhelp
+  Downloading sphinxcontrib_devhelp-1.0.2-py2.py3-none-any.whl (84 kB)
+     |████████████████████████████████| 84 kB 2.9 MB/s
+Collecting sphinxcontrib-qthelp
+  Downloading sphinxcontrib_qthelp-1.0.3-py2.py3-none-any.whl (90 kB)
+     |████████████████████████████████| 90 kB 8.9 MB/s
+Collecting snowballstemmer&gt;=1.1
+  Downloading snowballstemmer-2.0.0-py2.py3-none-any.whl (97 kB)
+     |████████████████████████████████| 97 kB 7.4 MB/s
+Collecting imagesize
+  Downloading imagesize-1.2.0-py2.py3-none-any.whl (4.8 kB)
+Collecting Jinja2&gt;=2.3
+  Downloading Jinja2-2.11.2-py2.py3-none-any.whl (125 kB)
+     |████████████████████████████████| 125 kB 12.3 MB/s
+Collecting pytz&gt;=2015.7
+  Downloading pytz-2020.4-py2.py3-none-any.whl (509 kB)
+     |████████████████████████████████| 509 kB 12.2 MB/s
+Collecting chardet&lt;4,&gt;=3.0.2
+  Downloading chardet-3.0.4-py2.py3-none-any.whl (133 kB)
+     |████████████████████████████████| 133 kB 12.1 MB/s
+Collecting idna&lt;3,&gt;=2.5
+  Downloading idna-2.10-py2.py3-none-any.whl (58 kB)
+     |████████████████████████████████| 58 kB 7.7 MB/s
+Collecting urllib3&lt;1.27,&gt;=1.21.1
+  Downloading urllib3-1.26.2-py2.py3-none-any.whl (136 kB)
+     |████████████████████████████████| 136 kB 13.2 MB/s
+Collecting certifi&gt;=2017.4.17
+  Downloading certifi-2020.12.5-py2.py3-none-any.whl (147 kB)
+     |████████████████████████████████| 147 kB 12.4 MB/s
+Collecting pyparsing&gt;=2.0.2
+  Downloading pyparsing-2.4.7-py2.py3-none-any.whl (67 kB)
+     |████████████████████████████████| 67 kB 6.4 MB/s
+Collecting MarkupSafe&gt;=0.23
+  Downloading MarkupSafe-1.1.1-cp38-cp38-manylinux1_x86_64.whl (32 kB)
+<span style=display:block;width:100%;background-color:#3c3d38>Installing collected packages: docutils, sphinxcontrib-applehelp, Pygments, pytz, babel, chardet, idna, urllib3, certifi, requests, sphinxcontrib-serializinghtml, sphinxcontrib-jsmath, sphinxcontrib-htmlhelp, pyparsing, packaging, alabaster, sphinxcontrib-devhelp, sphinxcontrib-qthelp, snowballstemmer, imagesize, MarkupSafe, Jinja2, Sphinx, sphinx-rtd-theme
+</span><span style=display:block;width:100%;background-color:#3c3d38>Successfully installed Jinja2-2.11.2 MarkupSafe-1.1.1 Pygments-2.7.3 Sphinx-2.4.4 alabaster-0.7.12 babel-2.9.0 certifi-2020.12.5 chardet-3.0.4 docutils-0.16 idna-2.10 imagesize-1.2.0 packaging-20.7 pyparsing-2.4.7 pytz-2020.4 requests-2.25.0 snowballstemmer-2.0.0 sphinx-rtd-theme-0.5.0 sphinxcontrib-applehelp-1.0.2 sphinxcontrib-devhelp-1.0.2 sphinxcontrib-htmlhelp-1.0.3 sphinxcontrib-jsmath-1.0.1 sphinxcontrib-qthelp-1.0.3 sphinxcontrib-serializinghtml-1.1.4 urllib3-1.26.2
+</span></code></pre></div><p>하지만 위의 상황에서 설명했듯, six는 설치되지 않았다. 혹시 다른 패키지나 six가 설치 목록에 있었는데 삭제된 것은 아닌지 확인해보자.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:block;width:100%;background-color:#3c3d38>$ git --no-pager log --stat Documentation/sphinx/requirements.txt
+</span>commit d5afc9640a6d4596e57a2c4906f903ab1c83ada5
+Author: Mauro Carvalho Chehab &lt;mchehab+huawei@kernel.org&gt;
+Date:   Tue Apr 14 18:48:30 2020 +0200
+
+    docs: update recommended Sphinx version to 2.4.4
+
+    There are some docs that have nested tables. While this was
+    always part of the spec, only Sphinx version 2.4.x can
+    translate it to LaTeX.
+
+    In other words, if someone is using a Sphinx version &lt; 2.4,
+    the LaTeX and PDF output won&#39;t work for some of the docs.
+
+    So, it seems that it is time to raise the bar again
+    for the recommented version.
+
+    The Sphinx check script is already smart enough to keep
+    working, with older versions, warning the users that
+    an upgrade is recommended (and explaining how):
+
+            Sphinx version 1.7.9
+            Warning: It is recommended at least Sphinx version 2.4.4.
+            Detected OS: Fedora release 31 (Thirty One).
+
+            To upgrade Sphinx, use:
+
+                    /usr/bin/virtualenv sphinx_2.4.4
+                    . sphinx_2.4.4/bin/activate
+                    pip install -r ./Documentation/sphinx/requirements.txt
+
+    Signed-off-by: Mauro Carvalho Chehab &lt;mchehab+huawei@kernel.org&gt;
+    Link: https://lore.kernel.org/r/498f701c618f7d0cf5f0a37e5889ee926f7c8bf4.1586881715.git.mchehab+huawei@kernel.org
+    Signed-off-by: Jonathan Corbet &lt;corbet@lwn.net&gt;
+
+ Documentation/sphinx/requirements.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit a700767a7682d9bd237e927253274859aee075e7
+Author: Mauro Carvalho Chehab &lt;mchehab+samsung@kernel.org&gt;
+Date:   Wed May 29 20:09:32 2019 -0300
+
+    docs: requirements.txt: recommend Sphinx 1.7.9
+
+    As discussed at the linux-doc ML, while we&#39;ll still support
+    version 1.3, it is time to recommend a more modern version.
+
+    So, let&#39;s switch the minimal requirements to Sphinx 1.7.9,
+    as it has the &#34;-jauto&#34; flag, with makes a lot faster when
+    building documentation.
+
+    Signed-off-by: Mauro Carvalho Chehab &lt;mchehab+samsung@kernel.org&gt;
+    Signed-off-by: Jonathan Corbet &lt;corbet@lwn.net&gt;
+
+ Documentation/sphinx/requirements.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit fb947f3f472303d54759bf898cf92fd8c2dc9bdf
+Author: Mauro Carvalho Chehab &lt;mchehab@kernel.org&gt;
+Date:   Mon Jul 17 18:46:38 2017 -0300
+
+    sphinx-pre-install: use a requirements file
+
+    Instead of using 3 commands to install a virtualenv, use
+    a single one, reading the requirements from this file:
+
+            Documentation/sphinx/requirements.txt
+
+    Signed-off-by: Mauro Carvalho Chehab &lt;mchehab@s-opensource.com&gt;
+    Signed-off-by: Jonathan Corbet &lt;corbet@lwn.net&gt;
+
+ Documentation/sphinx/requirements.txt | 3 +++
+ 1 file changed, 3 insertions(+)
+</code></pre></div><p>다행히 requirements.txt의 변화 기록도 많지 않고, 변화분도 적어서 쉽게 확인할 수 있다. 시간순으로 각 commit에 대해 요약하자면 아래와 같다.</p><ol><li>원래는 virtualenv에서 각 패키지들 설치 명령을 직접 입력하던 것을 간소화(fb947f3f472303d54759bf898cf92fd8c2dc9bdf)</li><li>문서 생성 속도를 빠르게 하기 위해 Sphinx의 버전을 1.7.9로 변경함(a700767a7682d9bd237e927253274859aee075e7)</li><li>다른 문서 생성하는 부분에 Sphinx 1.7.9는 부적합해서 버전을 2.4.4로 변경함
+(d5afc9640a6d4596e57a2c4906f903ab1c83ada5)</li></ol><p>딱히 six가 지워질 이유는 없었던 것 같다. 그렇다면 혹시 six를 사용하는 kfigure.py에서 갑자기 six를 사용하기 시작했는데 requirements.txt에 추가하는 것을 빼먹었을 수도 있지 않을까? kfigure.py의 수정 기록을 찾아보자.</p><h3 id=kfigurepy에서-six-부분-기록-확인하기>kfigure.py에서 six 부분 기록 확인하기</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:block;width:100%;background-color:#3c3d38>$ git --no-pager log --stat Documentation/sphinx/kfigure.py
+</span>commit 93431e0607e58a3c997a134adc0fad4fdc147dab
+Author: Alexander A. Klimov &lt;grandmaster@al2klimov.de&gt;
+Date:   Tue May 26 08:05:44 2020 +0200
+
+    Replace HTTP links with HTTPS ones: documentation
+
+    Rationale:
+    Reduces attack surface on kernel devs opening the links for MITM
+    as HTTPS traffic is much harder to manipulate.
+
+    Deterministic algorithm:
+    For each file:
+      For each line:
+        If doesn&#39;t contain `\bxmlns\b`:
+          For each link, `\bhttp://[^# \t\r\n]*(?:\w|/)`:
+            If both the HTTP and HTTPS versions
+            return 200 OK and serve the same content:
+              Replace HTTP with HTTPS.
+
+    Signed-off-by: Alexander A. Klimov &lt;grandmaster@al2klimov.de&gt;
+    Link: https://lore.kernel.org/r/20200526060544.25127-1-grandmaster@al2klimov.de
+    Signed-off-by: Jonathan Corbet &lt;corbet@lwn.net&gt;
+
+ Documentation/sphinx/kfigure.py | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 096ea522e84ea68f8e6c41e5e7294731a81e29bc
+Author: Jonathan Corbet &lt;corbet@lwn.net&gt;
+Date:   Tue May 21 14:23:43 2019 -0600
+
+    doc: Cope with Sphinx logging deprecations
+
+    Recent versions of sphinx will emit messages like:
+
+      Documentation/sphinx/kerneldoc.py:103:
+         RemovedInSphinx20Warning: app.warning() is now deprecated.
+         Use sphinx.util.logging instead.
+
+    Switch to sphinx.util.logging to make this unsightly message go away.
+    Alas, that interface was only added in version 1.6, so we have to add a
+    version check to keep things working with older sphinxes.
+
+    Cc: stable@vger.kernel.org
+    Signed-off-by: Jonathan Corbet &lt;corbet@lwn.net&gt;
+
+ Documentation/sphinx/kfigure.py | 40 +++++++++++++++++++++++-----------------
+ 1 file changed, 23 insertions(+), 17 deletions(-)
+
+commit ae17a87dd7c79fa742ef5dcf06d1095eec4e1925
+Author: Masanari Iida &lt;standby24x7@gmail.com&gt;
+Date:   Thu Jan 11 20:00:28 2018 +0900
+
+    linux-next: docs-rst: Fix typos in kfigure.py
+
+    This patch fixes some spelling typos found in kfigure.py
+
+    Signed-off-by: Masanari Iida &lt;standby24x7@gmail.com&gt;
+    Signed-off-by: Jonathan Corbet &lt;corbet@lwn.net&gt;
+
+ Documentation/sphinx/kfigure.py | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit db6ccf23e8ba40fc2e8914ec9c0eb950df71d9fe
+Author: Markus Heiser &lt;markus.heiser@darmarit.de&gt;
+Date:   Mon Mar 6 14:09:27 2017 +0100
+
+    docs-rst: automatically convert Graphviz and SVG images
+
+    This patch brings scalable figure, image handling and a concept to
+    embed *render* markups:
+
+    * DOT (http://www.graphviz.org)
+    * SVG
+
+    For image handling use the &#39;image&#39; replacement::
+
+        .. kernel-image::  svg_image.svg
+           :alt:    simple SVG image
+
+    For figure handling use the &#39;figure&#39; replacement::
+
+        .. kernel-figure::  svg_image.svg
+           :alt:    simple SVG image
+
+           SVG image example
+
+    Embed *render* markups (or languages) like Graphviz&#39;s **DOT** is
+    provided by the *render* directive.::
+
+      .. kernel-render:: DOT
+         :alt: foobar digraph
+         :caption: Embedded **DOT** (Graphviz) code.
+
+         digraph foo {
+          &#34;bar&#34; -&gt; &#34;baz&#34;;
+         }
+
+    The *render* directive is a concept to integrate *render* markups and
+    languages, yet supported markups:
+
+    * DOT: render embedded Graphviz&#39;s **DOT**
+    * SVG: render embedded Scalable Vector Graphics (**SVG**)
+
+    Cc: Jani Nikula &lt;jani.nikula@linux.intel.com&gt;
+    Cc: Laurent Pinchart &lt;laurent.pinchart@ideasonboard.com&gt;
+    Tested-by: Mauro Carvalho Chehab &lt;mchehab@s-opensource.com&gt;
+    Tested-by: Daniel Vetter &lt;daniel.vetter@ffwll.ch&gt;
+    Signed-off-by: Daniel Vetter &lt;daniel.vetter@intel.com&gt; (v2 - v5)
+    Signed-off-by: Markus Heiser &lt;markus.heiser@darmarit.de&gt; (v1, v6)
+    Signed-off-by: Jonathan Corbet &lt;corbet@lwn.net&gt;
+
+ Documentation/sphinx/kfigure.py | 551 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 551 insertions(+)
+</code></pre></div><p>commit 기록이 많은 것은 아니지만, 딱히 six를 언급하는 부분은 찾을 수 없다. 그렇다면 git log보단 blame으로 해당 라인의 기록을 찾는 것이 더 효율적이다.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:block;width:100%;background-color:#3c3d38>$ git --no-pager blame -L48,62 Documentation/sphinx/kfigure.py                    
+</span>db6ccf23e8ba4 (Markus Heiser 2017-03-06 14:09:27 +0100 48) import os
+db6ccf23e8ba4 (Markus Heiser 2017-03-06 14:09:27 +0100 49) from os import path
+db6ccf23e8ba4 (Markus Heiser 2017-03-06 14:09:27 +0100 50) import subprocess
+db6ccf23e8ba4 (Markus Heiser 2017-03-06 14:09:27 +0100 51) from hashlib import sha1
+db6ccf23e8ba4 (Markus Heiser 2017-03-06 14:09:27 +0100 52) import sys
+db6ccf23e8ba4 (Markus Heiser 2017-03-06 14:09:27 +0100 53)
+db6ccf23e8ba4 (Markus Heiser 2017-03-06 14:09:27 +0100 54) from docutils import nodes
+db6ccf23e8ba4 (Markus Heiser 2017-03-06 14:09:27 +0100 55) from docutils.statemachine import ViewList
+db6ccf23e8ba4 (Markus Heiser 2017-03-06 14:09:27 +0100 56) from docutils.parsers.rst import directives
+db6ccf23e8ba4 (Markus Heiser 2017-03-06 14:09:27 +0100 57) from docutils.parsers.rst.directives import images
+db6ccf23e8ba4 (Markus Heiser 2017-03-06 14:09:27 +0100 58) import sphinx
+db6ccf23e8ba4 (Markus Heiser 2017-03-06 14:09:27 +0100 59)
+db6ccf23e8ba4 (Markus Heiser 2017-03-06 14:09:27 +0100 60) from sphinx.util.nodes import clean_astext
+<span style=display:block;width:100%;background-color:#3c3d38>db6ccf23e8ba4 (Markus Heiser 2017-03-06 14:09:27 +0100 61) from six import iteritems
+</span>db6ccf23e8ba4 (Markus Heiser 2017-03-06 14:09:27 +0100 62)
+</code></pre></div><p>위에서 확인했던 commit 기록과 비교해봤을 때(db6ccf23e8ba40fc2e8914ec9c0eb950df71d9fe), six는 kfigure.py를 처음 작성했을 때 부터 계속 사용해 왔음을 알 수 있다. 그렇다면 다시 requirements.txt의 기록을 다시 찾아봐야 한다.</p><h3 id=requirementstxt의-하위-의존성-패키지-찾아보기>requirements.txt의 하위 의존성 패키지 찾아보기</h3><p>지금까지 분석한 것을 보고 평소 python으로 개발을 해 본 사람으로 생각했다면, 아쉽게도 나는 python을 아주 가끔 쓰기 때문에 전문적으로 아는 것은 아니다. 각 패키지 설치의 하위 의존성을 확인하는 방법을 검색해봤는데 나는 찾지 못했다. (키워드를 잘 모르는 것일 가능성이 높아보임)</p><p>현재로선 requirements.txt에 작성된 패키지를 직접 찾아 들어가서 하위 호환성을 확인해 보는 수밖에 없겠다. (사실 3가지 commit 버전을 모두 requirements.txt로 설치해보고 언제부터 six가 설치 목록에서 사라졌는지 확인하는 것이 제일 쉽다.)</p><p>requirements.txt의 기록을 보면 Sphinx의 버전이 2번 변경되었고, docutils가 1번 변경되었다. 변경 횟수가 더 많은 Sphinx가 더 의심스러워서 Sphinx를 먼저 찾아봤다. <a href=https://github.com/sphinx-doc/sphinx target=_blank rel="noopener noreffer">Sphinx</a>의 소스에서 하위 의존성 패키지 설치 목록이 정의된 파일은 <a href=https://github.com/sphinx-doc/sphinx/blob/3.x/setup.py target=_blank rel="noopener noreffer">setup.py</a>인 것 같다. 코드의 <a href=https://github.com/sphinx-doc/sphinx/blob/e35770f023370d48922361f33e66c90fa69dc0aa/setup.py#L17-L34 target=_blank rel="noopener noreffer">install_requires</a> 리스트에서 하위 의존성 패키지를 선언하고 있고, 제일 아래 <a href=https://github.com/sphinx-doc/sphinx/blob/e35770f023370d48922361f33e66c90fa69dc0aa/setup.py#L246 target=_blank rel="noopener noreffer">setup의 인자로</a> 전달되는 것을 확인할 수 있다.</p><p>다행히 requirements.txt에서 Sphinx의 버전이 명시되어 있으므로, 일단은 각 버전 별로 setup.py를 비교해보자. Sphinx는 각 버전을 배포할 때마다 버전 이름으로 tag를 달아놨으므로, <a href=https://github.com/sphinx-doc/sphinx/tags target=_blank rel="noopener noreffer">tag를 기반</a>으로 각 버전을 찾아가면 되겠다.</p><p>각 tag에 들어가면 tag가 연결된 commit id를 알아낼 수 있다. 해당 commit id를 클릭하면 그 commit 당시의 소스 코드를 확인할 수 있다. 각 버전, 해당 commit id, 그때 당시의 setup.py를 링크로 정리하면 다음과 같다.</p><table><thead><tr><th style=text-align:center>태그</th><th style=text-align:center>commit id</th><th style=text-align:left>해당 파일 상태</th></tr></thead><tbody><tr><td style=text-align:center><a href=https://github.com/sphinx-doc/sphinx/releases/tag/v2.4.4 target=_blank rel="noopener noreffer">v2.4.4</a></td><td style=text-align:center><a href=https://github.com/sphinx-doc/sphinx/tree/72ad5f2a98c60d2b1cd856b6b9057ac5b5c85edd target=_blank rel="noopener noreffer">72ad5f2</a></td><td style=text-align:left><a href=https://github.com/sphinx-doc/sphinx/blob/72ad5f2a98c60d2b1cd856b6b9057ac5b5c85edd/setup.py target=_blank rel="noopener noreffer">setup.py</a></td></tr><tr><td style=text-align:center><a href=https://github.com/sphinx-doc/sphinx/releases/tag/v1.7.9 target=_blank rel="noopener noreffer">v1.7.9</a></td><td style=text-align:center><a href=https://github.com/sphinx-doc/sphinx/tree/1cd87a11ef8df6b783d2e48d9668370a4e1640c9 target=_blank rel="noopener noreffer">1cd87a1</a></td><td style=text-align:left><a href=https://github.com/sphinx-doc/sphinx/blob/1cd87a11ef8df6b783d2e48d9668370a4e1640c9/setup.py target=_blank rel="noopener noreffer">setup.py</a></td></tr></tbody></table><p>분명 <a href=https://github.com/sphinx-doc/sphinx/blob/1cd87a11ef8df6b783d2e48d9668370a4e1640c9/setup.py#L17-L30 target=_blank rel="noopener noreffer">v1.7.9에는 install_requires에 six가 있지만</a>, <a href=https://github.com/sphinx-doc/sphinx/blob/72ad5f2a98c60d2b1cd856b6b9057ac5b5c85edd/setup.py#L17-L34 target=_blank rel="noopener noreffer">v2.4.4에는 존재하지 않는 것을 확인할 수 있다.</a> 결국 Sphinx 버전이 올라가면서 six가 하위 의존성에서 제외되면서 자동으로 설치되지 않게 되었음을 알 수 있다.</p><p>참고로 six는 <a href=https://github.com/sphinx-doc/sphinx/commit/6978918ffc14b0b096285adfa0c90f95de281efa#diff-60f61ab7a8d1910d86d9fda2261620314edcae5894d5aaa236b821c7256badd7 target=_blank rel="noopener noreffer">2.x</a>부터 하위 의존성에서 제외된 것을 확인할 수 있다.</p><h3 id=왜-이-문제를-발견하지-못했을까>왜 이 문제를 발견하지 못했을까?</h3><p>Sphinx 버전을 2.4.4로 올린 commit의 로그를 다시 확인해보자.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text>commit d5afc9640a6d4596e57a2c4906f903ab1c83ada5
+Author: Mauro Carvalho Chehab &lt;mchehab+huawei@kernel.org&gt;
+Date:   Tue Apr 14 18:48:30 2020 +0200
+
+    docs: update recommended Sphinx version to 2.4.4
+
+    There are some docs that have nested tables. While this was
+    always part of the spec, only Sphinx version 2.4.x can
+    translate it to LaTeX.
+
+    In other words, if someone is using a Sphinx version &lt; 2.4,
+    the LaTeX and PDF output won&#39;t work for some of the docs.
+
+    So, it seems that it is time to raise the bar again
+    for the recommented version.
+
+<span style=display:block;width:100%;background-color:#3c3d38>    The Sphinx check script is already smart enough to keep
+</span><span style=display:block;width:100%;background-color:#3c3d38>    working, with older versions, warning the users that
+</span><span style=display:block;width:100%;background-color:#3c3d38>    an upgrade is recommended (and explaining how):
+</span>
+            Sphinx version 1.7.9
+            Warning: It is recommended at least Sphinx version 2.4.4.
+            Detected OS: Fedora release 31 (Thirty One).
+
+            To upgrade Sphinx, use:
+
+                    /usr/bin/virtualenv sphinx_2.4.4
+                    . sphinx_2.4.4/bin/activate
+                    pip install -r ./Documentation/sphinx/requirements.txt
+
+    Signed-off-by: Mauro Carvalho Chehab &lt;mchehab+huawei@kernel.org&gt;
+    Link: https://lore.kernel.org/r/498f701c618f7d0cf5f0a37e5889ee926f7c8bf4.1586881715.git.mchehab+huawei@kernel.org
+    Signed-off-by: Jonathan Corbet &lt;corbet@lwn.net&gt;
+
+ Documentation/sphinx/requirements.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+</code></pre></div><p>여기에서는 Sphinx 검사 스크립트가 버전 업그레이드 필요 여부에 대한 경고 및 설치법을 잘 설명하고 있다고만 언급하고 있다.</p><p>즉, 해당 패치를 작성할 때는 Sphinx 버전을 업그레이드하는 경우만 고려하고, 처음부터 설치하는 경우는 고려하지 않은 상태였음을 알 수 있다. 1.7.9에서 2.4.4로 업그레이드하는 경우는 이미 1.7.9 설치 과정에서 six가 설치되어 있기 때문에 이런 문제를 확인하지 못한 것으로 보인다.</p><h2 id=문제-해결-및-commit>문제 해결 및 commit</h2><p>일단 six가 없는 문제는 six를 설치하면 된다. 위에서 requirements.txt를 사용했으니 여기에 six를 추가하면 된다.</p><p>그리고 혹시 다른 모듈에서도 설치되지 않은 패키지가 있는지 확인해보자.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:block;width:100%;background-color:#3c3d38>$ grep -r &#34;import&#34; Documentation/sphinx
+</span>Documentation/sphinx/automarkup.py:from docutils import nodes
+Documentation/sphinx/automarkup.py:from sphinx import addnodes
+Documentation/sphinx/automarkup.py:from sphinx.environment import NoUri
+Documentation/sphinx/automarkup.py:import re
+Documentation/sphinx/load_config.py:import os
+Documentation/sphinx/load_config.py:import sys
+Documentation/sphinx/load_config.py:from sphinx.util.pycompat import execfile_
+Documentation/sphinx/kernel_include.py:# imports
+Documentation/sphinx/kernel_include.py:import os.path
+Documentation/sphinx/kernel_include.py:from docutils import io, nodes, statemachine
+Documentation/sphinx/kernel_include.py:from docutils.utils.error_reporting import SafeString, ErrorString
+Documentation/sphinx/kernel_include.py:from docutils.parsers.rst import directives
+Documentation/sphinx/kernel_include.py:from docutils.parsers.rst.directives.body import CodeBlock, NumberLines
+Documentation/sphinx/kernel_include.py:from docutils.parsers.rst.directives.misc import Include
+Documentation/sphinx/kerneldoc.py:import codecs
+Documentation/sphinx/kerneldoc.py:import os
+Documentation/sphinx/kerneldoc.py:import subprocess
+Documentation/sphinx/kerneldoc.py:import sys
+Documentation/sphinx/kerneldoc.py:import re
+Documentation/sphinx/kerneldoc.py:import glob
+Documentation/sphinx/kerneldoc.py:from docutils import nodes, statemachine
+Documentation/sphinx/kerneldoc.py:from docutils.statemachine import ViewList
+Documentation/sphinx/kerneldoc.py:from docutils.parsers.rst import directives, Directive
+Documentation/sphinx/kerneldoc.py:import sphinx
+Documentation/sphinx/kerneldoc.py:    from sphinx.util.docutils import switch_source_input
+Documentation/sphinx/kerneldoc.py:    from sphinx.ext.autodoc import AutodocReporter
+Documentation/sphinx/kerneldoc.py:import kernellog
+Documentation/sphinx/kernellog.py:import sphinx
+Documentation/sphinx/kernellog.py:    from sphinx.util import logging
+Documentation/sphinx/rstFlatTable.py:# imports
+Documentation/sphinx/rstFlatTable.py:import sys
+Documentation/sphinx/rstFlatTable.py:from docutils import nodes
+Documentation/sphinx/rstFlatTable.py:from docutils.parsers.rst import directives, roles
+Documentation/sphinx/rstFlatTable.py:from docutils.parsers.rst.directives.tables import Table
+Documentation/sphinx/rstFlatTable.py:from docutils.utils import SystemMessagePropagation
+Documentation/sphinx/kfigure.py:import os
+Documentation/sphinx/kfigure.py:from os import path
+Documentation/sphinx/kfigure.py:import subprocess
+Documentation/sphinx/kfigure.py:from hashlib import sha1
+Documentation/sphinx/kfigure.py:import sys
+Documentation/sphinx/kfigure.py:from docutils import nodes
+Documentation/sphinx/kfigure.py:from docutils.statemachine import ViewList
+Documentation/sphinx/kfigure.py:from docutils.parsers.rst import directives
+Documentation/sphinx/kfigure.py:from docutils.parsers.rst.directives import images
+Documentation/sphinx/kfigure.py:import sphinx
+Documentation/sphinx/kfigure.py:from sphinx.util.nodes import clean_astext
+Documentation/sphinx/kfigure.py:from six import iteritems
+Documentation/sphinx/kfigure.py:import kernellog
+Documentation/sphinx/kfigure.py:    from sphinx.directives.patches import Figure  # pylint: disable=C0413
+Documentation/sphinx/cdomain.py:from docutils import nodes
+Documentation/sphinx/cdomain.py:from docutils.parsers.rst import directives
+Documentation/sphinx/cdomain.py:import sphinx
+Documentation/sphinx/cdomain.py:from sphinx import addnodes
+Documentation/sphinx/cdomain.py:from sphinx.domains.c import c_funcptr_sig_re, c_sig_re
+Documentation/sphinx/cdomain.py:from sphinx.domains.c import CObject as Base_CObject
+Documentation/sphinx/cdomain.py:from sphinx.domains.c import CDomain as Base_CDomain
+</code></pre></div><p>일단 import를 기준으로 검색해 본 결과 six만 없는 것으로 판단했다. 이제 수정하고 commit을 작성하자. 앞에서 조사했던 내용을 포함하여 왜 six가 requirements.txt에 추가되어야 하는지 설명하자.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-patch data-lang=patch>From eb48c1fd1092cdd0c1636ea0275ab3a48101e483 Mon Sep 17 00:00:00 2001
+From: JaeSang Yoo &lt;jsyoo5b@gmail.com&gt;
+Date: Mon, 7 Dec 2020 23:35:09 +0900
+Subject: [PATCH] docs: update requirements to install six module
+
+On the update of Sphinx version to 2.4.4, the &#34;six&#34; library won&#39;t be
+installed automatically. (which is required by kfigure.py)
+
+Main reason of this issue were occurred by the requirements changed from
+the sphinx library. In Sphinx v1.7.9, six was listed on the
+install_requires, but it has been removed since 2.x
+
+The kfigure.py uses six library explicitly, adding six to
+requirements.txt seems reasonable
+
+Signed-off-by: JaeSang Yoo &lt;jsyoo5b@gmail.com&gt;
+<span style=color:#f92672>---
+</span><span style=color:#f92672></span> Documentation/sphinx/requirements.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/sphinx/requirements.txt b/Documentation/sphinx/requirements.txt
+index 489f6626de67..5030d346d23b 100644
+<span style=color:#f92672>--- a/Documentation/sphinx/requirements.txt
+</span><span style=color:#f92672></span><span style=color:#a6e22e>+++ b/Documentation/sphinx/requirements.txt
+</span><span style=color:#a6e22e></span><span style=color:#75715e>@@ -1,3 +1,4 @@
+</span><span style=color:#75715e></span> docutils
+ Sphinx==2.4.4
+ sphinx_rtd_theme
+<span style=color:#a6e22e>+six
+</span><span style=color:#a6e22e></span><span style=color:#f92672>-- 
+</span><span style=color:#f92672></span>2.25.1
+</code></pre></div><p>대충 commit 메시지를 해석하자면 아래와 같다.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text>Sphinx 버전을 2.4.4로 올리면서, &#34;six&#34; 라이브러리가 더 이상 자동으로
+설치가 되지 않는다. (kfigure.py에서 필요함)
+
+이 문제의 주요 원인은 sphinx 라이브러리의 요구사항이 변경되었기
+때문이다. Sphinx v1.7.9까지는 six가 install_requires에 있었는데,
+2.x부터는 삭제되었다.
+
+kfigure.py에서 six 라이브러리를 명시적으로 사용하니깐, six를
+requirements.txt에 추가하는 것이 좋겠다.
+</code></pre></div><p>해당 패치를 커널에 반영하기 위해서는 메일로 패치를 전송해야 하는데, 그건 내용이 복잡하기도 하고, 주제를 따로 빼는 것이 좋을 것 같아 다음 글에서 설명하도록 하겠다.</p><h2 id=결과>결과</h2><p><a href="https://marc.info/?l=linux-doc&m=160739211028039&w=2" target=_blank rel="noopener noreffer">해당 patch를 메일로 전송했고</a>, <a href="https://marc.info/?l=linux-doc&m=160740895331764&w=2" target=_blank rel="noopener noreffer">마지막으로 requirements.txt를 수정했던 사람으로부터 답장이 왔다</a>. 사실 1줄밖에 안되는 데다가 간단한 문제기 때문에 특별한 review가 없다.</p><p>이후 <a href="https://marc.info/?l=linux-doc&m=160756021717513&w=2" target=_blank rel="noopener noreffer">실제 Documentation의 maintainer가 나한테 patch가 적용되었다고 답장을 보냈다</a>. Python2 하위 호환성을 그만 제공하는 것이 제일 최선이지만, 그 전까지는 six를 설치하는 것이 맞으니 일단 적용하도록 하겠다고 한다. 여기에서 추가적으로 commit할 거리가 더 생각났지만, 이건 추후 더 작업이 되면 언급하도록 하겠다.</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>수정: 2020-12-09</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/%EB%A6%AC%EB%88%85%EC%8A%A4/>리눅스</a>,&nbsp;<a href=/tags/%EC%BB%A4%EB%84%90/>커널</a>,&nbsp;<a href=/tags/git/>git</a>,&nbsp;<a href=/tags/sphinx/>sphinx</a></section><section><span><a href=javascript:void(0); onclick=window.history.back();>뒤로</a></span>&nbsp;|&nbsp;<span><a href=/>홈</a></span></section></div><div class=post-nav><a href=/posts/review/book-joel-on-software/ class=prev rel=prev title="[책 리뷰] 조엘 온 소프트웨어"><i class="fas fa-angle-left fa-fw"></i>[책 리뷰] 조엘 온 소프트웨어</a></div></div><div id=comments><div id=utterances></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://utteranc.es/>Utterances</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line><a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.79.0">Hugo</a>로 제작된 사이트 | 테마 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i>LoveIt</a></div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2020</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank></a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="맨 위로"><i class="fas fa-arrow-up fa-fw"></i></a><a href=# id=view-comments class=fixed-button title="댓글 보기"><i class="fas fa-comment fa-fw"></i></a></div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript>window.config={"code":{"copyTitle":"복사하기","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"jsyoo5b/blog"}}};</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','UA-93278071-1',{'anonymize_ip':true});</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=UA-93278071-1" async></script></body></html>
