@@ -63,7 +63,7 @@
 </code></pre></td></tr></table></div></div></div><div id=c48db5fb0d5ecc32 class=codetab__content><div class=highlight><pre class=chroma><code class=language-text data-lang=text>$ ./go_bit_clear
 11001100
 10001000
-</code></pre></div></div></div><script>'use strict';var containerId=JSON.parse('"9db2aaf4702e5fd6"'),containerElem=document.getElementById(containerId),codetabLinks=null,codetabContents=null,ids=[],i;containerElem&&(codetabLinks=containerElem.querySelectorAll('.codetab__link'),codetabContents=containerElem.querySelectorAll('.codetab__content'));for(i=0;i<codetabContents.length;i++)ids=ids.concat(codetabContents[i].getAttribute('id')),codetabContents[i].style.display='none',0===parseInt(i,10)&&!codetabContents[i].classList.contains('active')&&codetabContents[i].classList.add('active');for(i=0;i<codetabLinks.length;i++)codetabLinks[i].setAttribute('id',ids[i]),0===parseInt(i,10)&&!codetabLinks[i].classList.contains('active')?codetabLinks[i].classList.add('active'):codetabLinks[i].classList.remove('active');codetabContents.length>0&&(codetabContents[0].style.display='block')</script><h3 id=shift-연산자>Shift 연산자</h3><p>Shift 연산이 2의 제곱에 대한 곱셈, 나눗셈 역할을 하는 것은 알고 있었다. 하지만 오른쪽 shift시 채워지는 값이 양수/음수에 따라 다르다는 것은 처음 알았다.</p><p>Go 언어만 그런 것인지, 다른 언어에서도 당연한 것인지 확인해보자.</p><div id=b8ef4ebdcc93b77b class=codetab><div class=codetab__links><button class=codetab__link aria-label="Tab link">go 코드</button>
+</code></pre></div></div></div><script>'use strict';var containerId=JSON.parse('"9db2aaf4702e5fd6"'),containerElem=document.getElementById(containerId),codetabLinks=null,codetabContents=null,ids=[],i;containerElem&&(codetabLinks=containerElem.querySelectorAll('.codetab__link'),codetabContents=containerElem.querySelectorAll('.codetab__content'));for(i=0;i<codetabContents.length;i++)ids=ids.concat(codetabContents[i].getAttribute('id')),codetabContents[i].style.display='none',0===parseInt(i,10)&&!codetabContents[i].classList.contains('active')&&codetabContents[i].classList.add('active');for(i=0;i<codetabLinks.length;i++)codetabLinks[i].setAttribute('id',ids[i]),0===parseInt(i,10)&&!codetabLinks[i].classList.contains('active')?codetabLinks[i].classList.add('active'):codetabLinks[i].classList.remove('active');codetabContents.length>0&&(codetabContents[0].style.display='block')</script><h3 id=shift-연산자>Shift 연산자</h3><p>Shift 연산이 2의 제곱에 대한 곱셈, 나눗셈 역할을 하는 것은 알고 있었다. 하지만 오른쪽 shift시 채워지는 값이 양수/음수에 따라 다르다는 것은 처음 알았다.</p><p>Go 언어만 그런 것인지, 다른 언어에서도 당연한 것인지 확인해보자.</p><div id=d24eb3806cdecb85 class=codetab><div class=codetab__links><button class=codetab__link aria-label="Tab link">go 코드</button>
 <button class=codetab__link aria-label="Tab link">C 코드</button>
 <button class=codetab__link aria-label="Tab link">Java 코드</button>
 <button class=codetab__link aria-label="Tab link">실행 결과</button></div><div id=69c067200e893887 class=codetab__content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
@@ -106,7 +106,7 @@
 	<span class=n>printf</span><span class=p>(</span><span class=s>&#34;0x%X</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>,</span> <span class=n>num1</span> <span class=o>&gt;&gt;</span> <span class=mi>2</span><span class=p>);</span>
 	<span class=n>printf</span><span class=p>(</span><span class=s>&#34;0x%X</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>,</span> <span class=p>(</span><span class=n>u_int8_t</span><span class=p>)((</span><span class=n>int8_t</span><span class=p>)</span><span class=n>num1</span> <span class=o>&gt;&gt;</span> <span class=mi>2</span><span class=p>));</span>
 <span class=p>}</span>
-</code></pre></td></tr></table></div></div></div><div id=e8ba96c97a6d3d25 class=codetab__content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table></div></div></div><div id=37b74c4752af73e9 class=codetab__content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
@@ -114,7 +114,7 @@
 </span><span class=lnt>6
 </span><span class=lnt>7
 </span><span class=lnt>8
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=kd>public</span> <span class=kd>class</span> <span class=nc>Main</span> <span class=o>{</span>
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=kd>public</span> <span class=kd>class</span> <span class=nc>java_shr</span> <span class=o>{</span>
     <span class=kd>public</span> <span class=kd>static</span> <span class=kt>void</span> <span class=nf>main</span><span class=o>(</span><span class=n>String</span><span class=o>[]</span> <span class=n>args</span><span class=o>)</span> <span class=o>{</span>
         <span class=kt>char</span> <span class=n>num1</span> <span class=o>=</span> <span class=n>0xCC</span><span class=o>;</span>
 
@@ -122,7 +122,7 @@
         <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>printf</span><span class=o>(</span><span class=s>&#34;0x%X\n&#34;</span><span class=o>,</span> <span class=o>((</span><span class=kt>byte</span><span class=o>)</span><span class=n>num1</span> <span class=o>&gt;&gt;</span> <span class=n>2</span><span class=o>));</span>
     <span class=o>}</span>
 <span class=o>}</span>
-</code></pre></td></tr></table></div></div></div><div id=31c2e9a17c47699e class=codetab__content><div class=highlight><pre class=chroma><code class=language-text data-lang=text>$ ./go_shr
+</code></pre></td></tr></table></div></div></div><div id=e8d345cb902b0738 class=codetab__content><div class=highlight><pre class=chroma><code class=language-text data-lang=text>$ ./go_shr
 0x33
 0xF3
 
@@ -130,10 +130,10 @@ $ ./c_shr
 0x33
 0xF3
 
-$ ./java_shr
+$ java java_shr
 0x33
 0xFFFFFFF3
-</code></pre></div></div></div><script>'use strict';var containerId=JSON.parse('"b8ef4ebdcc93b77b"'),containerElem=document.getElementById(containerId),codetabLinks=null,codetabContents=null,ids=[],i;containerElem&&(codetabLinks=containerElem.querySelectorAll('.codetab__link'),codetabContents=containerElem.querySelectorAll('.codetab__content'));for(i=0;i<codetabContents.length;i++)ids=ids.concat(codetabContents[i].getAttribute('id')),codetabContents[i].style.display='none',0===parseInt(i,10)&&!codetabContents[i].classList.contains('active')&&codetabContents[i].classList.add('active');for(i=0;i<codetabLinks.length;i++)codetabLinks[i].setAttribute('id',ids[i]),0===parseInt(i,10)&&!codetabLinks[i].classList.contains('active')?codetabLinks[i].classList.add('active'):codetabLinks[i].classList.remove('active');codetabContents.length>0&&(codetabContents[0].style.display='block')</script><p>Go 언어만이 아니라 모든 언어에서 동일한 결과가 확인되었다.</p><h3 id=nextafter>NextAfter</h3><p>컴퓨터에서 실수 연산 처리에는 오차가 수반된다. 해당 문제를 해결할 수 있도록 Go에서는 다음 비트 값의 실수를 얻는 <code>NextAfter()</code> 함수를 제공한다.</p><div id=b725bac2a79628ef class=codetab><div class=codetab__links><button class=codetab__link aria-label="Tab link">go 코드</button>
+</code></pre></div></div></div><script>'use strict';var containerId=JSON.parse('"d24eb3806cdecb85"'),containerElem=document.getElementById(containerId),codetabLinks=null,codetabContents=null,ids=[],i;containerElem&&(codetabLinks=containerElem.querySelectorAll('.codetab__link'),codetabContents=containerElem.querySelectorAll('.codetab__content'));for(i=0;i<codetabContents.length;i++)ids=ids.concat(codetabContents[i].getAttribute('id')),codetabContents[i].style.display='none',0===parseInt(i,10)&&!codetabContents[i].classList.contains('active')&&codetabContents[i].classList.add('active');for(i=0;i<codetabLinks.length;i++)codetabLinks[i].setAttribute('id',ids[i]),0===parseInt(i,10)&&!codetabLinks[i].classList.contains('active')?codetabLinks[i].classList.add('active'):codetabLinks[i].classList.remove('active');codetabContents.length>0&&(codetabContents[0].style.display='block')</script><p>Go 언어만이 아니라 모든 언어에서 동일한 결과가 확인되었다.</p><h3 id=nextafter>NextAfter</h3><p>컴퓨터에서 실수 연산 처리에는 오차가 수반된다. 해당 문제를 해결할 수 있도록 Go에서는 다음 비트 값의 실수를 얻는 <code>NextAfter()</code> 함수를 제공한다.</p><div id=b725bac2a79628ef class=codetab><div class=codetab__links><button class=codetab__link aria-label="Tab link">go 코드</button>
 <button class=codetab__link aria-label="Tab link">실행 결과</button></div><div id=eb5161b214b28869 class=codetab__content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
