@@ -21,6 +21,8 @@
 <span title="읽는 시간" dir=ltr>&#183; ☕&nbsp;4&nbsp;min read</span></h6></header><div><div class="summary-classic__text p2">『Tucker의 Go 언어 프로그래밍』 스터디 요약 노트입니다. 13장. 구조체 구조체의 Go 언어에서의 특징만 확인해보자. class가 없이, struct만</div></div></div></div><hr></article><ul class=pagination><li class=active><a href=/ko/categories/%EC%8A%A4%ED%84%B0%EB%94%94-%EB%A1%9C%EA%B7%B8/>1</a></li><li><a href=/ko/categories/%EC%8A%A4%ED%84%B0%EB%94%94-%EB%A1%9C%EA%B7%B8/page/2/>2</a></li><li><a href=/ko/categories/%EC%8A%A4%ED%84%B0%EB%94%94-%EB%A1%9C%EA%B7%B8/page/3/>3</a></li></ul></div><div class=search-result data-display=none><div class=search-result__header><div class=search-result__close data-dir=ltr><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path opacity=".87" fill="none" d="M0 0h24v24H0V0z"/><path fill="currentcolor" d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41.0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.59-13L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"/></svg></div></div><div class=search-result__body><ul><li class=search-result__item><div class=search-result__item--title></div><div class=search-result__item--desc></div></li></ul></div></div></div><aside class="list__sidebar l" data-dir=ltr><ul class=sidebar><li class=sidebar-recent><a href=/ko/posts/patent/musthave/ch05/ class="sidebar-recent__title p1">특판남이 알려주는 돈 되는 특허 A to Z 5장 요약</a></li><li class=sidebar-recent><a href=/ko/posts/patent/musthave/ch04/ class="sidebar-recent__title p1">특판남이 알려주는 돈 되는 특허 A to Z 4장 요약</a></li><li class=sidebar-recent><a href=/ko/posts/patent/musthave/ch03/ class="sidebar-recent__title p1">특판남이 알려주는 돈 되는 특허 A to Z 3장 요약</a></li><li class=sidebar-recent><a href=/ko/posts/patent/musthave/ch02/ class="sidebar-recent__title p1">특판남이 알려주는 돈 되는 특허 A to Z 2장 요약</a></li><li class=sidebar-recent><a href=/ko/posts/patent/musthave/ch01/ class="sidebar-recent__title p1">특판남이 알려주는 돈 되는 특허 A to Z 1장 요약</a></li><hr class="hr-fade sidebar-hr"></ul><div class=taxo-root><div class=taxo><section><span class="title p2"><a href=/ko/tags/ class=taxo__title>태그</a></span>
 <span class=tag><a href=/ko/tags/diy/ class="is-tags taxo__link" data-dir=ltr><span class=taxo__text>DIY</span>
 <span class=taxo__num dir=auto>1</span></a></span>
+<span class=tag><a href=/ko/tags/gcc/ class="is-tags taxo__link" data-dir=ltr><span class=taxo__text>gcc</span>
+<span class=taxo__num dir=auto>1</span></a></span>
 <span class=tag><a href=/ko/tags/git/ class="is-tags taxo__link" data-dir=ltr><span class=taxo__text>git</span>
 <span class=taxo__num dir=auto>1</span></a></span>
 <span class=tag><a href=/ko/tags/golang/ class="is-tags taxo__link" data-dir=ltr><span class=taxo__text>golang</span>
@@ -54,11 +56,11 @@
 <span class=tag><a href=/ko/tags/%EC%A1%B0%EC%97%98-%EC%98%A8-%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4/ class="is-tags taxo__link" data-dir=ltr><span class=taxo__text>조엘 온 소프트웨어</span>
 <span class=taxo__num dir=auto>1</span></a></span>
 <span class=tag><a href=/ko/tags/%EC%BB%A4%EB%84%90/ class="is-tags taxo__link" data-dir=ltr><span class=taxo__text>커널</span>
-<span class=taxo__num dir=auto>3</span></a></span>
+<span class=taxo__num dir=auto>4</span></a></span>
 <span class=tag><a href=/ko/tags/%ED%8A%B9%ED%97%88/ class="is-tags taxo__link" data-dir=ltr><span class=taxo__text>특허</span>
 <span class=taxo__num dir=auto>5</span></a></span></section></div><div class=taxo><section><span class="title p2"><a href=/ko/categories/ class=taxo__title>카테고리</a></span>
 <span class=tag><a href=/ko/categories/%EA%B0%9C%EB%B0%9C-%ED%8C%81/ class="is-categories taxo__link" data-dir=ltr><span class=taxo__text>개발 팁</span>
-<span class=taxo__num dir=auto>5</span></a></span>
+<span class=taxo__num dir=auto>6</span></a></span>
 <span class=tag><a href=/ko/categories/%EB%A6%AC%EB%B7%B0/ class="is-categories taxo__link" data-dir=ltr><span class=taxo__text>리뷰</span>
 <span class=taxo__num dir=auto>2</span></a></span>
 <span class=tag><a href=/ko/categories/%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%B2%98%EB%A6%AC/ class="is-categories taxo__link" data-dir=ltr><span class=taxo__text>문자열 처리</span>
@@ -68,7 +70,7 @@
 <span class=tag><a href=/ko/categories/%EC%9D%B8%ED%94%84%EB%9D%BC-%EA%B4%80%EB%A6%AC/ class="is-categories taxo__link" data-dir=ltr><span class=taxo__text>인프라 관리</span>
 <span class=taxo__num dir=auto>1</span></a></span></section></div><div class=taxo><section><span class="title p2"><a href=/ko/series/ class=taxo__title>시리즈</a></span>
 <span class=tag><a href=/ko/series/iamroot/ class="is-series taxo__link" data-dir=ltr><span class=taxo__text>iamroot</span>
-<span class=taxo__num dir=auto>2</span></a></span>
+<span class=taxo__num dir=auto>3</span></a></span>
 <span class=tag><a href=/ko/series/%EB%9D%BC%EC%A6%88%EB%B2%A0%EB%A6%AC%ED%8C%8C%EC%9D%B4/ class="is-series taxo__link" data-dir=ltr><span class=taxo__text>라즈베리파이</span>
 <span class=taxo__num dir=auto>2</span></a></span>
 <span class=tag><a href=/ko/series/%EB%A8%B8%EC%8A%A4%ED%8A%B8%ED%95%B4%EB%B8%8C-%EC%8A%A4%ED%84%B0%EB%94%94-go-%EC%96%B8%EC%96%B4%EA%B0%80-%EC%98%A8%EB%8B%B9/ class="is-series taxo__link" data-dir=ltr><span class=taxo__text>머스트해브 스터디: Go 언어가 온당</span>
