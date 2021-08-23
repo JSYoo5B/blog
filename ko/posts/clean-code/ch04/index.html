@@ -282,11 +282,11 @@ kimbie
 <p>직관적으로 이해되지 않는 코드 흐름에 대한 설명을 위해 주석을 다는 것은 좋으나, 나라면 앞에 <code>FIXME</code>나 <code>HACK</code>, <code>XXX</code>같은 태그를 붙였을 것이다. (아래 <a href=#TODO-%EC%A3%BC%EC%84%9D>TODO 주석</a>에서 다시 설명할 것이다.)</p>
 <h3 id=의미를-명료하게-밝히는-주석>의미를 명료하게 밝히는 주석</h3>
 <p>가끔씩 코드의 내용이 복잡하거나 가독성이 낮은 부분을 설명해주기 위한 주석도 좋다. (함수 인자로 들어가는 값이 복잡하거나, 결과 값이 직관적이지 않을 때) 원칙적으로는 복잡한 부분을 해소시켜서 코드만으로 의미를 알 수 있게 하는 것이 좋으나, 표준 라이브러리 안의 내용이라던가, 내부 코드를 교체할 수 없는 상황(외부 라이브러리 사용 등)에서는 이러한 부분이 도움이 될 수 있다.</p>
-<div id=4a0f47b6cb2c4e32 class=codetab>
+<div id=79bd09c7ca7a2fa7 class=codetab>
 <div class=codetab__links>
 <button class=codetab__link aria-label="Tab link">의미를 설명하는 주석</button>
 </div>
-<div id=0bfb984e7040fd08 class=codetab__content>
+<div id=2de9a08310888fb9 class=codetab__content>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=kd>public</span> <span class=kt>void</span> <span class=nf>testCompareTo</span><span class=o>()</span> <span class=kd>throws</span> <span class=n>Exception</span>
 <span class=o>{</span>
     <span class=n>WikiPagePath</span> <span class=n>a</span> <span class=o>=</span> <span class=n>PathParser</span><span class=o>.</span><span class=na>parse</span><span class=o>(</span><span class=s>&#34;PageA&#34;</span><span class=o>);</span>
@@ -302,14 +302,14 @@ kimbie
 </span></span><span class=hl><span class=c1></span>    <span class=n>assertTrue</span><span class=o>(</span><span class=n>a</span><span class=o>.</span><span class=na>compareTo</span><span class=o>(</span><span class=n>b</span><span class=o>)</span> <span class=o>==</span> <span class=o>-</span><span class=n>1</span><span class=o>);</span>   <span class=c1>// a &lt; a
 </span></span><span class=hl><span class=c1></span>    <span class=n>assertTrue</span><span class=o>(</span><span class=n>aa</span><span class=o>.</span><span class=na>compareTo</span><span class=o>(</span><span class=n>ab</span><span class=o>)</span> <span class=o>==</span> <span class=o>-</span><span class=n>1</span><span class=o>);</span> <span class=c1>// aa &lt; ab
 </span></span><span class=hl><span class=c1></span>    <span class=n>assertTrue</span><span class=o>(</span><span class=n>ba</span><span class=o>.</span><span class=na>compareTo</span><span class=o>(</span><span class=n>bb</span><span class=o>)</span> <span class=o>==</span> <span class=o>-</span><span class=n>1</span><span class=o>);</span> <span class=c1>// ba &lt; bb
-</span></span><span class=hl><span class=c1></span>    <span class=n>assertTrue</span><span class=o>(</span><span class=n>b</span><span class=o>.</span><span class=na>compareTo</span><span class=o>(</span><span class=n>a</span><span class=o>)</span> <span class=o>==</span> <span class=n>11</span><span class=o>);</span>   <span class=c1>// b &gt; a
+</span></span><span class=hl><span class=c1></span>    <span class=n>assertTrue</span><span class=o>(</span><span class=n>b</span><span class=o>.</span><span class=na>compareTo</span><span class=o>(</span><span class=n>a</span><span class=o>)</span> <span class=o>==</span> <span class=n>1</span><span class=o>);</span>    <span class=c1>// b &gt; a
 </span></span><span class=hl><span class=c1></span>    <span class=n>assertTrue</span><span class=o>(</span><span class=n>ab</span><span class=o>.</span><span class=na>compareTo</span><span class=o>(</span><span class=n>aa</span><span class=o>)</span> <span class=o>==</span> <span class=n>1</span><span class=o>);</span>  <span class=c1>// ab &gt; aa
 </span></span><span class=hl><span class=c1></span>    <span class=n>assertTrue</span><span class=o>(</span><span class=n>bb</span><span class=o>.</span><span class=na>compareTo</span><span class=o>(</span><span class=n>ba</span><span class=o>)</span> <span class=o>==</span> <span class=n>1</span><span class=o>);</span>  <span class=c1>// bb &gt; ba
 </span></span><span class=c1></span><span class=o>}</span>
 </code></pre></div>
 </div>
 </div>
-<script>'use strict';var containerId=JSON.parse('"4a0f47b6cb2c4e32"'),containerElem=document.getElementById(containerId),codetabLinks=null,codetabContents=null,ids=[],i;containerElem&&(codetabLinks=containerElem.querySelectorAll('.codetab__link'),codetabContents=containerElem.querySelectorAll('.codetab__content'));for(i=0;i<codetabContents.length;i++)ids=ids.concat(codetabContents[i].getAttribute('id')),codetabContents[i].style.display='none',0===parseInt(i,10)&&!codetabContents[i].classList.contains('active')&&codetabContents[i].classList.add('active');for(i=0;i<codetabLinks.length;i++)codetabLinks[i].setAttribute('id',ids[i]),0===parseInt(i,10)&&!codetabLinks[i].classList.contains('active')?codetabLinks[i].classList.add('active'):codetabLinks[i].classList.remove('active');codetabContents.length>0&&(codetabContents[0].style.display='block')</script>
+<script>'use strict';var containerId=JSON.parse('"79bd09c7ca7a2fa7"'),containerElem=document.getElementById(containerId),codetabLinks=null,codetabContents=null,ids=[],i;containerElem&&(codetabLinks=containerElem.querySelectorAll('.codetab__link'),codetabContents=containerElem.querySelectorAll('.codetab__content'));for(i=0;i<codetabContents.length;i++)ids=ids.concat(codetabContents[i].getAttribute('id')),codetabContents[i].style.display='none',0===parseInt(i,10)&&!codetabContents[i].classList.contains('active')&&codetabContents[i].classList.add('active');for(i=0;i<codetabLinks.length;i++)codetabLinks[i].setAttribute('id',ids[i]),0===parseInt(i,10)&&!codetabLinks[i].classList.contains('active')?codetabLinks[i].classList.add('active'):codetabLinks[i].classList.remove('active');codetabContents.length>0&&(codetabContents[0].style.display='block')</script>
 <p>앞에서 언급했듯, 정규표현식이야말로 대체 불가능한 복잡한 코드라고 생각한다.</p>
 <h3 id=결과를-경고하는-주석>결과를 경고하는 주석</h3>
 <div id=40964e86d3f2e580 class=codetab>
@@ -357,6 +357,32 @@ kimbie
 </ul>
 <p>위의 태그들은 공식적으로 지정된 규칙은 없지만, 어느 환경에서나 <code>TODO</code>, <code>FIXME</code>는 공통적으로 활용된다.</p>
 <p>물론 더러운 코드를 작성해 놓고 <code>TODO</code>등으로 메모만 해놓고 방치하면 이런 주석 태그의 효과가 약해지므로, 남발하지 않는 것이 좋다.</p>
+<p><code>TODO</code>나 <code>FIXME</code>는 책에서 어느정도 설명이 되었으니, <code>HACK</code>을 적용하는 예시를 보여주도록 하겠다.</p>
+<div id=2ac1df26e0c5fabd class=codetab>
+<div class=codetab__links>
+<button class=codetab__link aria-label="Tab link">전처리기를 사용한 설명</button>
+<button class=codetab__link aria-label="Tab link">주석에서 코드를 첨부한 설명</button>
+</div>
+<div id=2788b73638fe4f78 class=codetab__content>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c>    <span class=c1>// HACK: Get counts of packing payload without branch
+</span><span class=c1></span><span class=cp>#if 0</span><span class=c> // unoptimized version
+</span><span class=c>    pkt_cnt = size / PKT_PAYLOAD_MAX;
+</span><span class=c>    if (size % PKT_PAYLOAD_MAX &gt; 0)
+</span><span class=c>        pkt_cnt += 1;
+</span><span class=c></span><span class=cp>#endif
+</span><span class=cp></span>    <span class=n>pkt_cnt</span> <span class=o>=</span> <span class=p>(</span><span class=n>size</span> <span class=o>+</span> <span class=n>PKT_PAYLOAD_MAX</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span> <span class=o>/</span> <span class=n>PKT_PAYLOAD_MAX</span><span class=p>;</span>
+</code></pre></div>
+</div>
+<div id=621d239d46d83c2b class=codetab__content>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java>    <span class=c1>// HACK: Get counts of packing payload without branch
+</span><span class=c1></span>    <span class=c1>// pkt_cnt = size / PKT_PAYLOAD_MAX;
+</span><span class=c1></span>    <span class=c1>// if (size % PKT_PAYLOAD_MAX &gt; 0)
+</span><span class=c1></span>    <span class=c1>//     pky_cnt += 1;
+</span><span class=c1></span>    <span class=n>pkt_cnt</span> <span class=o>=</span> <span class=o>(</span><span class=n>size</span> <span class=o>+</span> <span class=n>PKT_PAYLOAD_MAX</span> <span class=o>-</span> <span class=n>1</span><span class=o>)</span> <span class=o>/</span> <span class=n>PKT_PAYLOAD_MAX</span><span class=o>;</span>
+</code></pre></div>
+</div>
+</div>
+<script>'use strict';var containerId=JSON.parse('"2ac1df26e0c5fabd"'),containerElem=document.getElementById(containerId),codetabLinks=null,codetabContents=null,ids=[],i;containerElem&&(codetabLinks=containerElem.querySelectorAll('.codetab__link'),codetabContents=containerElem.querySelectorAll('.codetab__content'));for(i=0;i<codetabContents.length;i++)ids=ids.concat(codetabContents[i].getAttribute('id')),codetabContents[i].style.display='none',0===parseInt(i,10)&&!codetabContents[i].classList.contains('active')&&codetabContents[i].classList.add('active');for(i=0;i<codetabLinks.length;i++)codetabLinks[i].setAttribute('id',ids[i]),0===parseInt(i,10)&&!codetabLinks[i].classList.contains('active')?codetabLinks[i].classList.add('active'):codetabLinks[i].classList.remove('active');codetabContents.length>0&&(codetabContents[0].style.display='block')</script>
 <h3 id=중요성을-강조하는-주석>중요성을 강조하는 주석</h3>
 <p>아래와 같이 코드 흐름에서 강조를 해 주는 주석이 있다. (<code>NOTE</code> 등으로 강조를 해 주는 것이 좋다고 생각한다.)</p>
 <div id=8566d8f9987360ca class=codetab>
