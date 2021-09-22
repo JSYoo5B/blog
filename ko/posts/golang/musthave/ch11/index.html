@@ -252,6 +252,10 @@ kimbie
 <p>다중 <code>for</code>문에서 레이블을 선언하고, <code>break</code> 뒤에 레이블을 입력하면 해당 레이블에서 가장 가까운 <code>for</code>에서 <code>break</code>하는 효과가 있는데, 사실상 <code>goto</code>의 응용이라고 볼 수 있다.</p>
 <p>대부분 프로그래밍 언어에서는 <code>goto</code>계열의 기능 사용을 자제하라고 권고하고 있다. <a href=https://embeddedgurus.com/barr-code/2018/06/cs-goto-keyword-should-we-use-it-or-lose-it/>만약 <code>goto</code>를 사용할 수 밖에 없는 경우에는 뒤쪽 레이블로만 사용할 것을 권고하고 있다.</a> 대부분 임베디드 계열 코드나, 커널 코드를 보면 성능 향상이나 코드 크기 문제로 인해 어쩔 수 없이 <code>goto</code>를 사용하기 때문이다.</p>
 <p>그런데 여기서 사용하는 <code>break</code>의 활용 예시는 앞쪽 레이블을 인자로 사용하며, 해당 레이블에서 가까운 <code>for</code>문을 확인해야 하므로, 좋은 접근법은 아니다. 일반적으로 사용하지 말고, 어쩌다 코드 리딩 중에 발견할때 이해하는 수준으로 넘어가자.</p>
+<h2 id=저자-강의>저자 강의</h2>
+<div style=position:relative;padding-bottom:56.25%;height:0;overflow:hidden>
+<iframe src=https://www.youtube.com/embed/6K05jYPJlKo style=position:absolute;top:0;left:0;width:100%;height:100%;border:0 allowfullscreen title="YouTube Video"></iframe>
+</div>
 </article>
 <script defer src=/js/clipboard.min.1626706afc88d95ebe1173b553ec732c6dc82a576989315fdf5e7779af738a44.js></script>
 <script defer src=/js/helper/prev.min.js></script>
@@ -439,6 +443,7 @@ the programmer
 <li><a href=#레이블을-활용한-break>레이블을 활용한 break</a></li>
 </ul>
 </li>
+<li><a href=#저자-강의>저자 강의</a></li>
 </ul>
 </nav>
 </div>
