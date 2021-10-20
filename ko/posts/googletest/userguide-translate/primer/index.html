@@ -298,7 +298,7 @@ GoogleTest는 첫 테스크가 실패했다고 멈추지 않습니다. 대신 �
 </span><span class=c1></span>  <span class=n>size_t</span> <span class=nf>size</span><span class=p>()</span> <span class=k>const</span><span class=p>;</span>
   <span class=p>...</span>
 <span class=p>};</span>
-</code></pre></div><p>먼저, 고정부 클래스를 정의하다. 일반적으로 <code>Foo</code>라는 클래스를 테스트한다면, 고정부 클래스의 이름은 <code>FooTest</code>로 짓습니다.</p>
+</code></pre></div><p>먼저 고정부 클래스를 정의하겠습니다. 일반적으로 <code>Foo</code>라는 클래스를 테스트한다면, 고정부 클래스의 이름은 <code>FooTest</code>로 짓습니다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=k>class</span> <span class=nc>QueueTest</span> <span class=o>:</span> <span class=k>public</span> <span class=o>::</span><span class=n>testing</span><span class=o>::</span><span class=n>Test</span> <span class=p>{</span>
  <span class=k>protected</span><span class=o>:</span>
   <span class=kt>void</span> <span class=n>SetUp</span><span class=p>()</span> <span class=k>override</span> <span class=p>{</span>
