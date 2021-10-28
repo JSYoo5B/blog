@@ -174,7 +174,7 @@ Current translation is based on the version of <a href=https://github.com/google
 </code></pre></div><p>C 문자열과 <code>string</code> 객체를 포함하여 <code>ostream</code>으로 스트림할 수 있는 것들은 모두 단언문 매크로에 스트림 할 수 있습니다. 확장 문자열(wide string, Windows에서 <code>UNICODE</code> 환경이라면 <code>wchar_t*</code>, <code>TCHAR*</code>, <code>std::wstring</code>)를 매크로에 스트림한다면, 출력될 때 UTF-8로 변환되어 출력됩니다.</p>
 <h2 id=success-failure>명시적인 성공과 실패</h2>
 <p>본 문단에서 설명하는 단언문들은 값이나 표현식의 검사를 하지 않고 직접적으로 성공이나 실패를 발생시킵니다. 부울 논리식(Boolean expression) 대신 코드의 제어 흐름에 따라 테스트의 성공과 실패가 결정되는 상황에 사용하면 좋습니다. 예시는 아래와 같습니다.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=k>switch</span><span class=p>(</span><span class=n>expression</span><span class=p>)</span> <span class=p>{</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=k>switch</span><span class=p>(</span><span class=n>expression</span><span class=p>)</span> <span class=p>{</span>
   <span class=k>case</span> <span class=mi>1</span><span class=o>:</span>
     <span class=p>...</span> <span class=n>some</span> <span class=n>checks</span> <span class=p>...</span>
   <span class=k>case</span> <span class=mi>2</span><span class=o>:</span>
@@ -194,14 +194,14 @@ Current translation is based on the version of <a href=https://github.com/google
 <p><code>ADD_FAILURE()</code></p>
 <p>위 매크로를 사용하여 심각하지 않은 실패를 발생시킵니다. 실패 이후에도 현재 함수가 계속 동작할 수 있게 합니다.</p>
 <h3 id=ADD_FAILURE_AT>ADD_FAILURE_AT</h3>
-<p><code>ADD_FAILURE_AT(</code><em><code>file_path</code></em><code>,</code><em><code>line_number</code></em><code>)</code></p>
+<p><code>ADD_FAILURE_AT(file_path, line_number)</code></p>
 <p>위 매크로를 사용하여 심각하지 않은 실패를 발생시킵니다. 실패 메시지에 파일 경로, 몇번째 줄 정보를 추가할 수 있습니다.</p>
 <h2 id=generalized>일반화된 단언문</h2>
 <p>아래 단언문들은 <a href=../matchers/>일치자(matchers)</a>를 통해 값을 검증할 수 있게 해줍니다.</p>
 <h3 id=EXPECT_THAT>EXPECT_THAT</h3>
-<p><code>EXPECT_THAT(</code><em><code>value</code></em><code>,</code><em><code>matcher</code></em><code>)</code><br>
-<code>ASSERT_THAT(</code><em><code>value</code></em><code>,</code><em><code>matcher</code></em><code>)</code></p>
-<p>위 단언문들은 <em><code>value</code></em> 가 <em>일치자(<code>matcher</code>)</em> 의 조건을 만족하는지 검증해줍니다.</p>
+<p><code>EXPECT_THAT(value, matcher)</code><br>
+<code>ASSERT_THAT(value, matcher)</code></p>
+<p>위 단언문은 <code>value</code>가 일치자 <code>matcher</code>의 조건을 만족하는지 검증해줍니다.</p>
 <p>아래 예시를 보면, 문자열 <code>value1</code>이 <code>"Hello"</code>로 시작하는지 검증하고, <code>value2</code>가 정규표현식을 만족하는지, <code>value3</code>의 값이 <code>5</code>와 <code>10</code> 사이의 값인지 검증합니다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=cp>#include</span> <span class=cpf>&#34;gmock/gmock.h&#34;</span><span class=cp>
 </span><span class=cp></span>
@@ -225,13 +225,13 @@ Expected: starts with &#34;Hello&#34;
 <h2 id=boolean>부울 조건식(Boolean conditions)</h2>
 <p>아래 단언문들은 부울 조건식을 검사합니다.</p>
 <h3 id=EXPECT_TRUE>EXPECT_TRUE</h3>
-<p><code>EXPECT_TRUE(</code><em><code>condition</code></em><code>)</code><br>
-<code>ASSERT_TRUE(</code><em><code>condition</code></em><code>)</code></p>
-<p>위 단언문은 논리 조건 <em><code>condition</code></em> 이 참인지 검증합니다.</p>
+<p><code>EXPECT_TRUE(condition)</code><br>
+<code>ASSERT_TRUE(condition)</code></p>
+<p>위 단언문은 논리 조건 <code>condition</code>이 참인지 검증합니다.</p>
 <h3 id=EXPECT_FALSE>EXPECT_FALSE</h3>
-<p><code>EXPECT_FALSE(</code><em><code>condition</code></em><code>)</code><br>
-<code>ASSERT_FALSE(</code><em><code>condition</code></em><code>)</code></p>
-<p>위 단언문은 논리조건 <em><code>condition</code></em> 이 거짓인지 검증합니다.</p>
+<p><code>EXPECT_FALSE(condition)</code><br>
+<code>ASSERT_FALSE(condition)</code></p>
+<p>위 단언문은 논리조건 <code>condition</code>이 거짓인지 검증합니다.</p>
 <h2 id=binary-comparison>값 비교</h2>
 <p>앞으로 다룰 단언문들은 두 값을 비교합니다. 단언문에 전달할 인자들은 단언문에서 하려는 비교가 가능한 객체여야 합니다. 만약 비교가 불가능한 객체라면 컴파일 오류가 발생할 것입니다.</p>
 <p>만약 전달 인자가 <code>&lt;&lt;</code> 연산자를 지원한다면, 각 단언문이 실패할 경우 해당 인자를 출력하기 위해 해당 연산자를 호출할 것입니다. 만약 연산자를 통한 출력이 지원되지 않는다면, GoogleTest는 각 전달 인자를 출력하기에 가장 좋은 방법을 찾습니다. 자세한 내용은 <a href=../../advanced/#teaching-googletest-how-to-print-your-values>GoogleTest에게 값을 출력하는 방법을 가르쳐주기</a> 문단을 보기 바랍니다.</p>
@@ -239,69 +239,69 @@ Expected: starts with &#34;Hello&#34;
 <p>값 비교는 일반 문자열과 확장문자열 모두 적용 가능합니다. (<code>string</code>과 <code>wstring</code>)</p>
 <p>부동 소수점 숫자 비교 방법이나 반올림, 근사값 처리(rounding)로 인한 문제를 피하려면 <a href=#floating-point>부동 소수점 비교</a> 단언문 문단을 참고하시기 바랍니다.</p>
 <h3 id=EXPECT_EQ>EXPECT_EQ</h3>
-<p><code>EXPECT_EQ(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code><br>
-<code>ASSERT_EQ(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code></p>
-<p>위 단언문은 <em><code>val1</code></em><code>==</code><em><code>val2</code></em> 임을 검사합니다.</p>
+<p><code>EXPECT_EQ(val1, val2)</code><br>
+<code>ASSERT_EQ(val1, val2)</code></p>
+<p>위 단언문은 <code>val1==val2</code>임을 검사합니다.</p>
 <p>포인터 일치 검사도 지원합니다. 만약 2개의 C 문자열을 비교한다면, 위 단언문은 두 변수가 같은 메모리 위치를 가지고 있는지 검증할 뿐, 해당 문자열의 내용이 같은지 검증하는 것이 아닙니다. C 문자열(<code>const char*</code> 등의 자료형)의 비교에는 <a href=#EXPECT_STREQ><code>EXPECT_STREQ</code></a>를 사용하십시오.</p>
-<p>포인터의 값이 <code>NULL</code>인지 비교하려면, <code>EXPECT_EQ(</code><em><code>ptr</code></em><code>, NULL)</code> 대신 <code>EXPECT_EQ(</code><em><code>ptr</code></em><code>, nullptr)</code>를 사용해야 합니다.</p>
+<p>포인터의 값이 <code>NULL</code>인지 비교하려면, <code>EXPECT_EQ(ptr, NULL)</code> 대신 <code>EXPECT_EQ(ptr, nullptr)</code>를 사용해야 합니다.</p>
 <h3 id=EXPECT_NE>EXPECT_NE</h3>
-<p><code>EXPECT_NE(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code><br>
-<code>ASSERT_NE(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code></p>
-<p>위 단언문은 <em><code>val1</code></em><code>!=</code><em><code>val2</code></em> 임을 검사합니다.</p>
+<p><code>EXPECT_NE(val1, val2)</code><br>
+<code>ASSERT_NE(val1, val2)</code></p>
+<p>위 단언문은 <code>val1!=val2</code> 임을 검사합니다.</p>
 <p>포인터 일치 검사도 지원합니다. 만약 2개의 C 문자열을 비교한다면, 위 단언문은 두 변수가 서로 다른 메모리 위치를 가지고 있는지 검증할 뿐, 해당 문자열의 내용이 다른지 검증하는 것이 아닙니다. C 문자열(<code>const char*</code> 등의 자료형)의 비교에는 <a href=#EXPECT_STRNE><code>EXPECT_STRNE</code></a>를 사용하십시오.</p>
-<p>포인터의 값이 <code>NULL</code>이 아닌지 비교하려면, <code>EXPECT_NE(</code><em><code>ptr</code></em><code>, NULL)</code> 대신 <code>EXPECT_NE(</code><em><code>ptr</code></em><code>, nullptr)</code>를 사용해야 합니다.</p>
+<p>포인터의 값이 <code>NULL</code>이 아닌지 비교하려면, <code>EXPECT_NE(ptr, NULL)</code> 대신 <code>EXPECT_NE(ptr, nullptr)</code>를 사용해야 합니다.</p>
 <h3 id=EXPECT_LT>EXPECT_LT</h3>
-<p><code>EXPECT_LT(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code><br>
-<code>ASSERT_LT(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code></p>
-<p>위 단언문은 <em><code>val1</code></em><code>&lt;</code><em><code>val2</code></em> 임을 검사합니다.</p>
+<p><code>EXPECT_LT(val1, val2)</code><br>
+<code>ASSERT_LT(val1, val2)</code></p>
+<p>위 단언문은 <code>val1&lt;val2</code> 임을 검사합니다.</p>
 <h3 id=EXPECT_LE>EXPECT_LE</h3>
-<p><code>EXPECT_LE(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code><br>
-<code>ASSERT_LE(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code></p>
-<p>위 단언문은 <em><code>val1</code></em><code>&lt;=</code><em><code>val2</code></em> 임을 검사합니다.</p>
+<p><code>EXPECT_LE(val1, val2)</code><br>
+<code>ASSERT_LE(val1, val2)</code></p>
+<p>위 단언문은 <code>val1&lt;=val2</code> 임을 검사합니다.</p>
 <h3 id=EXPECT_GT>EXPECT_GT</h3>
-<p><code>EXPECT_GT(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code><br>
-<code>ASSERT_GT(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code></p>
-<p>위 단언문은 <em><code>val1</code></em><code>></code><em><code>val2</code></em> 임을 검사합니다.</p>
+<p><code>EXPECT_GT(val1, val2)</code><br>
+<code>ASSERT_GT(val1, val2)</code></p>
+<p>위 단언문은 <code>val1>val2</code> 임을 검사합니다.</p>
 <h3 id=EXPECT_GE>EXPECT_GE</h3>
-<p><code>EXPECT_GE(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code><br>
-<code>ASSERT_GE(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code></p>
-<p>위 단언문은 <em><code>val1</code></em><code>>=</code><em><code>val2</code></em> 임을 검사합니다.</p>
+<p><code>EXPECT_GE(val1, val2)</code><br>
+<code>ASSERT_GE(val1, val2)</code></p>
+<p>위 단언문은 <code>val1>=val2</code> 임을 검사합니다.</p>
 <h2 id=c-strings>문자열 비교 (C 문자열)</h2>
 <p>아래 단언문들은 두 <strong>C 문자열</strong>을 비교할 때 사용합니다. 만약 두 <code>string</code> 객체를 비교하고자 한다면, <a href=#EXPECT_EQ><code>EXPECT_EQ</code></a>나 <a href=#EXPECT_NE><code>EXPECT_NE</code></a>를 샤용해야 합니다.</p>
 <p>이 단언문들은 확장 C 문자열(<code>wchar_t*</code>)도 지원합니다. 만약 두 확장 문자열의 비교가 실패한다면, 해당 값이 출력될 때는 UTF-8 문자열로 출력됩니다.</p>
-<p>C 문자열이 <code>NULL</code>인지 비교하고싶다면, <code>EXPECT_EQ(</code><em><code>c_string</code></em><code>, nullptr)</code> 나 <code>EXPECT_NE(</code><em><code>c_string</code></em><code>, nullptr)</code>를 사용해야 합니다.</p>
+<p>C 문자열이 <code>NULL</code>인지 비교하고싶다면, <code>EXPECT_EQ(c_string, nullptr)</code> 나 <code>EXPECT_NE(c_string, nullptr)</code>를 사용해야 합니다.</p>
 <h3 id=EXPECT_STREQ>EXPECT_STREQ</h3>
-<p><code>EXPECT_STREQ(</code><em><code>str1</code></em><code>,</code><em><code>str2</code></em><code>)</code><br>
-<code>ASSERT_STREQ(</code><em><code>str1</code></em><code>,</code><em><code>str2</code></em><code>)</code></p>
-<p>위 단언문은 두 C 문자열 <em><code>str1</code></em> 과 <em><code>str2</code></em> 의 내용이 같은지 검사합니다.</p>
+<p><code>EXPECT_STREQ(str1, str2)</code><br>
+<code>ASSERT_STREQ(str1, str2)</code></p>
+<p>위 단언문은 두 C 문자열 <code>str1</code>과 <code>str2</code>의 내용이 같은지 검사합니다.</p>
 <h3 id=EXPECT_STRNE>EXPECT_STRNE</h3>
-<p><code>EXPECT_STRNE(</code><em><code>str1</code></em><code>,</code><em><code>str2</code></em><code>)</code><br>
-<code>ASSERT_STRNE(</code><em><code>str1</code></em><code>,</code><em><code>str2</code></em><code>)</code></p>
-<p>위 단언문은 두 C 문자열 <em><code>str1</code></em> 과 <em><code>str2</code></em> 의 내용이 다른지 검사합니다.</p>
+<p><code>EXPECT_STRNE(str1, str2)</code><br>
+<code>ASSERT_STRNE(str1, str2)</code></p>
+<p>위 단언문은 두 C 문자열 <code>str1</code>과 <code>str2</code>의 내용이 다른지 검사합니다.</p>
 <h3 id=EXPECT_STRCASEEQ>EXPECT_STRCASEEQ</h3>
-<p><code>EXPECT_STRCASEEQ(</code><em><code>str1</code></em><code>,</code><em><code>str2</code></em><code>)</code><br>
-<code>ASSERT_STRCASEEQ(</code><em><code>str1</code></em><code>,</code><em><code>str2</code></em><code>)</code></p>
-<p>위 단언문은 두 C 문자열 <em><code>str1</code></em> 과 <em><code>str2</code></em> 의 내용이 같은지 검사합니다. (대소문자 무시)</p>
+<p><code>EXPECT_STRCASEEQ(str1, str2)</code><br>
+<code>ASSERT_STRCASEEQ(str1, str2)</code></p>
+<p>위 단언문은 두 C 문자열 <code>str1</code>과 <code>str2</code>의 내용이 같은지 검사합니다. (대소문자 무시)</p>
 <h3 id=EXPECT_STRCASENE>EXPECT_STRCASENE</h3>
-<p><code>EXPECT_STRCASENE(</code><em><code>str1</code></em><code>,</code><em><code>str2</code></em><code>)</code><br>
-<code>ASSERT_STRCASENE(</code><em><code>str1</code></em><code>,</code><em><code>str2</code></em><code>)</code></p>
-<p>위 단언문은 두 C 문자열 <em><code>str1</code></em> 과 <em><code>str2</code></em> 의 내용이 다른지 검사합니다. (대소문자 무시)</p>
+<p><code>EXPECT_STRCASENE(str1, str2)</code><br>
+<code>ASSERT_STRCASENE(str1, str2)</code></p>
+<p>위 단언문은 두 C 문자열 <code>str1</code>과 <code>str2</code>의 내용이 다른지 검사합니다. (대소문자 무시)</p>
 <h2 id=floating-point>부동소수점 비교</h2>
 <p>아래 단언문들은 두 부동소수점 값을 비교합니다.</p>
 <p>반올림, 근사값 오류로 인해 두 부동소수점 값이 정확하게 일치하는 경우는 드물기 때문에 <code>EXPECT_EQ</code>는 사용하기 적합하지 않습니다. 일반적으로 부동소수점 비교 시 적절한 오차 범위에 대한 처리가 필요합니다.</p>
 <p>GoogleTest는 마지막 자리의 단위(ULPs, Units in the Last Place)를 이용한 기본적인 오차 범위를 지원하는 단언문을 지원합니다. 마지막 자리의 단위를 이용한 비교법을 자세히 알고 싶다면 <a href=https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/>부동소수점 숫자를 비교하는 방법</a> 글을 읽어 보시기 바랍니다.</p>
 <h3 id=EXPECT_FLOAT_EQ>EXPECT_FLOAT_EQ</h3>
-<p><code>EXPECT_FLOAT_EQ(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code><br>
-<code>ASSERT_FLOAT_EQ(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code></p>
-<p>위 단언문은 두 <code>float</code>값 <em><code>val1</code></em> 과 <em><code>val2</code></em> 가 근사하게 같은지 비교합니다. (마지막 자리의 단위 4개 이하의 오차를 기준으로 판정)</p>
+<p><code>EXPECT_FLOAT_EQ(val1, val2)</code><br>
+<code>ASSERT_FLOAT_EQ(val1, val2)</code></p>
+<p>위 단언문은 두 <code>float</code>값 <code>val1</code>과 <code>val2</code>가 근사하게 같은지 비교합니다. (마지막 자리의 단위 4개 이하의 오차를 기준으로 판정)</p>
 <h3 id=EXPECT_DOUBLE_EQ>EXPECT_DOUBLE_EQ</h3>
-<p><code>EXPECT_DOUBLE_EQ(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code><br>
-<code>ASSERT_DOUBLE_EQ(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code></p>
-<p>위 단언문은 두 <code>double</code>값 <em><code>val1</code></em> 과 <em><code>val2</code></em> 가 근사하게 같은지 비교합니다. (마지막 자리의 단위 4개 이하의 오차를 기준으로 판정)</p>
+<p><code>EXPECT_DOUBLE_EQ(val1, val2)</code><br>
+<code>ASSERT_DOUBLE_EQ(val1, val2)</code></p>
+<p>위 단언문은 두 <code>double</code>값 <code>val1</code>과 <code>val2</code>가 근사하게 같은지 비교합니다. (마지막 자리의 단위 4개 이하의 오차를 기준으로 판정)</p>
 <h3 id=EXPECT_NEAR>EXPECT_NEAR</h3>
-<p><code>EXPECT_NEAR(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>,</code><em><code>abs_error</code></em><code>)</code><br>
-<code>ASSERT_NEAR(</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>,</code><em><code>abs_error</code></em><code>)</code></p>
-<p>위 단언문은 부동소수점 값 <em><code>val1</code></em> 과 <em><code>val2</code></em> 의 차이가 절대값 <em><code>abs_error</code></em> 이하인지를 확인합니다.</p>
+<p><code>EXPECT_NEAR(val1, val2, abs_error)</code><br>
+<code>ASSERT_NEAR(val1, val2, abs_error)</code></p>
+<p>위 단언문은 부동소수점 값 <code>val1</code>과 <code>val2</code>의 차이가 절대값 <code>abs_error</code>이하인지를 확인합니다.</p>
 <h2 id=exceptions>예외 처리 단언문</h2>
 <p>아래 단언문들은 주어진 코드 조각이 예외를 발생시키는지, 발생시키지 않는지 검증합니다. 이 기능을 사용하려면 빌드 환경에서 예외 처리를 활성화 해야 합니다.</p>
 <p>아래 설명에서 테스트 인자로 전달되는 코드 조각은 여러 구문의 혼합(compound statement)일 수 있습니다. 아래 예시를 참고하시기 바랍니다.</p>
@@ -310,32 +310,32 @@ Expected: starts with &#34;Hello&#34;
   <span class=n>DoSomething</span><span class=p>(</span><span class=o>&amp;</span><span class=n>n</span><span class=p>);</span>
 <span class=p>});</span>
 </code></pre></div><h3 id=EXPECT_THROW>EXPECT_THROW</h3>
-<p><code>EXPECT_THROW(</code><em><code>statement</code></em><code>,</code><em><code>exception_type</code></em><code>)</code><br>
-<code>ASSERT_THROW(</code><em><code>statement</code></em><code>,</code><em><code>exception_type</code></em><code>)</code></p>
-<p>위 단언문은 코드 구문 <em><code>statement</code></em> 에서 <em><code>exception_type</code></em> 자료형의 예외가 발생하는지 검증합니다.</p>
+<p><code>EXPECT_THROW(statement, exception_type)</code><br>
+<code>ASSERT_THROW(statement, exception_type)</code></p>
+<p>위 단언문은 코드 구문 <code>statement</code>에서 <code>exception_type</code> 자료형의 예외가 발생하는지 검증합니다.</p>
 <h3 id=EXPECT_ANY_THROW>EXPECT_ANY_THROW</h3>
-<p><code>EXPECT_ANY_THROW(</code><em><code>statement</code></em><code>)</code><br>
-<code>ASSERT_ANY_THROW(</code><em><code>statement</code></em><code>)</code></p>
-<p>위 단언문은 코드 구문 <em><code>statement</code></em> 에서 자료형에 관계없이 예외가 발생하는지 검증합니다.</p>
+<p><code>EXPECT_ANY_THROW(statement)</code><br>
+<code>ASSERT_ANY_THROW(statement)</code></p>
+<p>위 단언문은 코드 구문 <code>statement</code>에서 자료형에 관계없이 예외가 발생하는지 검증합니다.</p>
 <h3 id=EXPECT_NO_THROW>EXPECT_NO_THROW</h3>
-<p><code>EXPECT_NO_THROW(</code><em><code>statement</code></em><code>)</code><br>
-<code>ASSERT_NO_THROW(</code><em><code>statement</code></em><code>)</code></p>
-<p>위 단언문은 코드 구문 <em><code>statement</code></em> 에서 예외가 발생하지 않는지 검증합니다.</p>
+<p><code>EXPECT_NO_THROW(statement)</code><br>
+<code>ASSERT_NO_THROW(statement)</code></p>
+<p>위 단언문은 코드 구문 <code>statement</code>에서 예외가 발생하지 않는지 검증합니다.</p>
 <h2 id=predicates>서술부 단언문</h2>
 <p>아래 단언문들은 복잡한 서술부에 대한 검증을 지원합니다. 기존 <code>EXPECT_TRUE</code>만 단독으로 사용했을 때와 달리 좀 더 명확한 실패 메시지를 출력할 수 있습니다.</p>
 <h3 id=EXPECT_PRED>EXPECT_PRED*</h3>
-<p><code>EXPECT_PRED1(</code><em><code>pred</code></em><code>,</code><em><code>val1</code></em><code>)</code><br>
-<code>EXPECT_PRED2(</code><em><code>pred</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code><br>
-<code>EXPECT_PRED3(</code><em><code>pred</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>,</code><em><code>val3</code></em><code>)</code><br>
-<code>EXPECT_PRED4(</code><em><code>pred</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>,</code><em><code>val3</code></em><code>,</code><em><code>val4</code></em><code>)</code><br>
-<code>EXPECT_PRED5(</code><em><code>pred</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>,</code><em><code>val3</code></em><code>,</code><em><code>val4</code></em><code>,</code><em><code>val5</code></em><code>)</code></p>
-<p><code>ASSERT_PRED1(</code><em><code>pred</code></em><code>,</code><em><code>val1</code></em><code>)</code><br>
-<code>ASSERT_PRED2(</code><em><code>pred</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code><br>
-<code>ASSERT_PRED3(</code><em><code>pred</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>,</code><em><code>val3</code></em><code>)</code><br>
-<code>ASSERT_PRED4(</code><em><code>pred</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>,</code><em><code>val3</code></em><code>,</code><em><code>val4</code></em><code>)</code><br>
-<code>ASSERT_PRED5(</code><em><code>pred</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>,</code><em><code>val3</code></em><code>,</code><em><code>val4</code></em><code>,</code><em><code>val5</code></em><code>)</code></p>
-<p>위 단언문은 서술부 <em><code>pred</code></em> 가 뒤이어 주어진 값들을 인자로 받았을 때 참인지 (<code>true</code>를 반환하는지) 검증합니다.</p>
-<p>전달 인자인 <em><code>pred</code></em> 는 함수 혹은 함수자로서 그 인자의 개수가 각 매크로의 인자 개수와 같아야 합니다. 만약 해당 <em><code>pred</code></em> 가 주어진 인자에 대해 <code>true</code>를 반환한다면 그 단언문이 성공한 것이며, 아닐 경우 실패로 취급합니다.</p>
+<p><code>EXPECT_PRED1(pred, val1)</code><br>
+<code>EXPECT_PRED2(pred, val1, val2)</code><br>
+<code>EXPECT_PRED3(pred, val1, val2, val3)</code><br>
+<code>EXPECT_PRED4(pred, val1, val2, val3, val4)</code><br>
+<code>EXPECT_PRED5(pred, val1, val2, val3, val4, val5)</code></p>
+<p><code>ASSERT_PRED1(pred, val1)</code><br>
+<code>ASSERT_PRED2(pred, val1, val2)</code><br>
+<code>ASSERT_PRED3(pred, val1, val2, val3)</code><br>
+<code>ASSERT_PRED4(pred, val1, val2, val3, val4)</code><br>
+<code>ASSERT_PRED5(pred, val1, val2, val3, val4, val5)</code></p>
+<p>위 단언문은 서술부 <code>pred</code>가 뒤이어 주어진 값들을 인자로 받았을 때 참인지 (<code>true</code>를 반환하는지) 검증합니다.</p>
+<p>전달 인자인 <code>pred</code>는 함수 혹은 함수자로서 그 인자의 개수가 각 매크로의 인자 개수와 같아야 합니다. 만약 해당 <code>pred</code>가 주어진 인자에 대해 <code>true</code>를 반환한다면 그 단언문이 성공한 것이며, 아닐 경우 실패로 취급합니다.</p>
 <p>만약 단언문이 실패한다면, 각 전달 인자의 값을 출력합니다. 모든 인자들은 언제나 각각 한번씩 평가됩니다.</p>
 <p>예시로 아래 코드를 보기 바랍니다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=c1>// Returns true if m and n have no common divisors except 1.
@@ -354,7 +354,7 @@ c is 10
 </code></pre></div><p>만약 주어진 서술부가 오버로딩 된 함수거나 템플릿 함수인 경우, 단언문 매크로는 그 중 어떤 함수를 사용해야 할 지 결정하지 못할 수도 있습니다. 이런 경우 어떤 함수를 사용할 지 알려주기 위해 명시적으로 함수의 자료형을 표현해야 합니다. 예를 들어 1개의 인자를 받는 부울 함수 <code>IsPositive()</code> 가 인자의 자료형이 <code>int</code>와 <code>double</code>에 대해 오버로딩 되었다면 아래와 같이 작성해야 합니다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=n>EXPECT_PRED1</span><span class=p>(</span><span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>bool</span> <span class=p>(</span><span class=o>*</span><span class=p>)(</span><span class=kt>int</span><span class=p>)</span><span class=o>&gt;</span><span class=p>(</span><span class=n>IsPositive</span><span class=p>),</span> <span class=mi>5</span><span class=p>);</span>
 <span class=n>EXPECT_PRED1</span><span class=p>(</span><span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>bool</span> <span class=p>(</span><span class=o>*</span><span class=p>)(</span><span class=kt>double</span><span class=p>)</span><span class=o>&gt;</span><span class=p>(</span><span class=n>IsPositive</span><span class=p>),</span> <span class=mf>3.14</span><span class=p>);</span>
-</code></pre></div><p>단순하게 <code>EXPECT_PRED1(IsPositive, 5);</code> 와 같이 작성하면 컴파일 오류가 발생할 수 있습니다. 위와 비슷하게 템플릿 함수의 경우, 아래와 같이 템플릿의 자료형을 명시해야 합니다.</p>
+</code></pre></div><p>단순하게 <code>EXPECT_PRED1(IsPositive, 5);</code>와 같이 작성하면 컴파일 오류가 발생할 수 있습니다. 위와 비슷하게 템플릿 함수의 경우, 아래와 같이 템플릿의 자료형을 명시해야 합니다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=k>template</span> <span class=o>&lt;</span><span class=k>typename</span> <span class=n>T</span><span class=o>&gt;</span>
 <span class=kt>bool</span> <span class=n>IsNegative</span><span class=p>(</span><span class=n>T</span> <span class=n>x</span><span class=p>)</span> <span class=p>{</span>
   <span class=k>return</span> <span class=n>x</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>;</span>
@@ -364,18 +364,18 @@ c is 10
 </span></code></pre></div><p>만약 여러 인자를 사용하는 템플릿 함수의 경우, 해당 서술부를 괄호로 감싸서 매크로가 정확히 해석할 수 있도록 해야합니다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=n>ASSERT_PRED2</span><span class=p>((</span><span class=n>MyPredicate</span><span class=o>&lt;</span><span class=kt>int</span><span class=p>,</span> <span class=kt>int</span><span class=o>&gt;</span><span class=p>),</span> <span class=mi>5</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
 </code></pre></div><h3 id=EXPECT_PRED_FORMAT>EXPECT_PRED_FORMAT*</h3>
-<p><code>EXPECT_PRED_FORMAT1(</code><em><code>pred_formatter</code></em><code>,</code><em><code>val1</code></em><code>)</code><br>
-<code>EXPECT_PRED_FORMAT2(</code><em><code>pred_formatter</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code><br>
-<code>EXPECT_PRED_FORMAT3(</code><em><code>pred_formatter</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>,</code><em><code>val3</code></em><code>)</code><br>
-<code>EXPECT_PRED_FORMAT4(</code><em><code>pred_formatter</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>,</code><em><code>val3</code></em><code>,</code><em><code>val4</code></em><code>)</code><br>
-<code>EXPECT_PRED_FORMAT5(</code><em><code>pred_formatter</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>,</code><em><code>val3</code></em><code>,</code><em><code>val4</code></em><code>,</code><em><code>val5</code></em><code>)</code></p>
-<p><code>ASSERT_PRED_FORMAT1(</code><em><code>pred_formatter</code></em><code>,</code><em><code>val1</code></em><code>)</code><br>
-<code>ASSERT_PRED_FORMAT2(</code><em><code>pred_formatter</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>)</code><br>
-<code>ASSERT_PRED_FORMAT3(</code><em><code>pred_formatter</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>,</code><em><code>val3</code></em><code>)</code><br>
-<code>ASSERT_PRED_FORMAT4(</code><em><code>pred_formatter</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>,</code><em><code>val3</code></em><code>,</code><em><code>val4</code></em><code>)</code><br>
-<code>ASSERT_PRED_FORMAT5(</code><em><code>pred_formatter</code></em><code>,</code><em><code>val1</code></em><code>,</code><em><code>val2</code></em><code>,</code><em><code>val3</code></em><code>,</code><em><code>val4</code></em><code>,</code><em><code>val5</code></em><code>)</code></p>
-<p>위 단언문은 서술부 <em><code>pred_formatter</code></em> 가 뒤이어 주어진 값들을 인자로 받았을 때 참인지 (<code>true</code>를 반환하는지) 검증합니다.</p>
-<p>전달 인자인 <em><code>pred_formatter</code></em> 는 아래와 같은 함수 형식을 가진 <em>서술부 형식 출력화기</em> (predicate-formatter) 입니다.</p>
+<p><code>EXPECT_PRED_FORMAT1(pred_formatter, val1)</code><br>
+<code>EXPECT_PRED_FORMAT2(pred_formatter, val1, val2)</code><br>
+<code>EXPECT_PRED_FORMAT3(pred_formatter, val1, val2, val3)</code><br>
+<code>EXPECT_PRED_FORMAT4(pred_formatter, val1, val2, val3, val4)</code><br>
+<code>EXPECT_PRED_FORMAT5(pred_formatter, val1, val2, val3, val4, val5)</code></p>
+<p><code>ASSERT_PRED_FORMAT1(pred_formatter, val1)</code><br>
+<code>ASSERT_PRED_FORMAT2(pred_formatter, val1, val2)</code><br>
+<code>ASSERT_PRED_FORMAT3(pred_formatter, val1, val2, val3)</code><br>
+<code>ASSERT_PRED_FORMAT4(pred_formatter, val1, val2, val3, val4)</code><br>
+<code>ASSERT_PRED_FORMAT5(pred_formatter, val1, val2, val3, val4, val5)</code></p>
+<p>위 단언문은 서술부 <code>pred_formatter</code>가 뒤이어 주어진 값들을 인자로 받았을 때 참인지 (<code>true</code>를 반환하는지) 검증합니다.</p>
+<p>전달 인자인 <code>pred_formatter</code>는 아래와 같은 함수 형식을 가진 <em>서술부 형식 출력화기</em> (predicate-formatter) 입니다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=n>testing</span><span class=o>::</span><span class=n>AssertionResult</span> <span class=n>PredicateFormatter</span><span class=p>(</span><span class=k>const</span> <span class=kt>char</span><span class=o>*</span> <span class=n>expr1</span><span class=p>,</span>
                                             <span class=k>const</span> <span class=kt>char</span><span class=o>*</span> <span class=n>expr2</span><span class=p>,</span>
                                             <span class=p>...</span>
@@ -384,7 +384,7 @@ c is 10
                                             <span class=n>T2</span> <span class=n>val2</span><span class=p>,</span>
                                             <span class=p>...</span>
                                             <span class=n>Tn</span> <span class=n>valn</span><span class=p>);</span>
-</code></pre></div><p>여기서 <em><code>val1</code></em>, <em><code>val2</code></em>, &mldr;, <em><code>valn</code></em> 은 서술부의 인자로 전달되는 값을 뜻하며, <em><code>expr1</code></em>, <em><code>expr2</code></em>, &mldr;, <em><code>exprn</code></em> 는 각 인자들이 소스 코드에 작성된 표현식을 나타냅니다. 각 자료형인 <code>T1</code>, <code>T2</code>, &mldr;, <code>Tn</code>는 일반 값 자료형 뿐만 아니라 레퍼런스 자료형이 될 수도 있습니다. 만약 전달 인자의 자료형이 <code>T</code> 일때, 해당 자료형을 적합한 상황에 따라 <code>T</code> 혹은 <code>const T&</code>로 선언할 수 있습니다. 반환 자료형인 <code>testing::AssertionResult</code>에 대해 더 알고싶다면 <a href=../../advanced/#using-a-function-that-returns-an-assertionresult>AssertionResult를 반환하는 함수 활용하기</a> 문단을 참고하시기 바랍니다.</p>
+</code></pre></div><p>여기서 <code>val1</code>, <code>val2</code>, &mldr;, <code>valn</code>은 서술부의 인자로 전달되는 값을 뜻하며, <code>expr1</code>, <code>expr2</code>, &mldr;, <code>exprn</code>는 각 인자들이 소스 코드에 작성된 표현식을 나타냅니다. 각 자료형인 <code>T1</code>, <code>T2</code>, &mldr;, <code>Tn</code>는 일반 값 자료형 뿐만 아니라 레퍼런스 자료형이 될 수도 있습니다. 만약 전달 인자의 자료형이 <code>T</code> 일때, 해당 자료형을 적합한 상황에 따라 <code>T</code> 혹은 <code>const T&</code>로 선언할 수 있습니다. 반환 자료형인 <code>testing::AssertionResult</code>에 대해 더 알고싶다면 <a href=../../advanced/#using-a-function-that-returns-an-assertionresult>AssertionResult를 반환하는 함수 활용하기</a> 문단을 참고하시기 바랍니다.</p>
 <p>예시로 아래 코드를 보기 바랍니다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=c1>// Returns the smallest prime common divisor of m and n,
 </span><span class=c1>// or 1 when m and n are mutually prime.
@@ -422,13 +422,13 @@ c is 10
 <span class=n>ASSERT_HRESULT_SUCCEEDED</span><span class=p>(</span><span class=n>shell</span><span class=o>-&gt;</span><span class=n>ShellExecute</span><span class=p>(</span><span class=n>CComBSTR</span><span class=p>(</span><span class=n>url</span><span class=p>),</span> <span class=n>empty</span><span class=p>,</span> <span class=n>empty</span><span class=p>,</span> <span class=n>empty</span><span class=p>,</span> <span class=n>empty</span><span class=p>));</span>
 </code></pre></div><p>위 단언문은 <code>HRESULT</code> 반환 값의 의미에 따라 사람이 쉽게 읽을 수 있는 오류 메시지를 출력합니다.</p>
 <h3 id=EXPECT_HRESULT_SUCCEEDED>EXPECT_HRESULT_SUCCEEDED</h3>
-<p><code>EXPECT_HRESULT_SUCCEEDED(</code><em><code>expression</code></em><code>)</code><br>
-<code>ASSERT_HRESULT_SUCCEEDED(</code><em><code>expression</code></em><code>)</code></p>
-<p>위 단언문은 <em><code>expression</code></em> 이 성공한 <code>HRESULT</code>를 반환하는지 검증합니다.</p>
+<p><code>EXPECT_HRESULT_SUCCEEDED(expression)</code><br>
+<code>ASSERT_HRESULT_SUCCEEDED(expression)</code></p>
+<p>위 단언문은 <code>expression</code>이 성공한 <code>HRESULT</code>를 반환하는지 검증합니다.</p>
 <h3 id=EXPECT_HRESULT_FAILED>EXPECT_HRESULT_FAILED</h3>
-<p><code>EXPECT_HRESULT_FAILED(</code><em><code>expression</code></em><code>)</code><br>
-<code>EXPECT_HRESULT_FAILED(</code><em><code>expression</code></em><code>)</code></p>
-<p>위 단언문은 <em><code>expression</code></em> 이 실패한 <code>HRESULT</code>를 반환하는지 검증합니다.</p>
+<p><code>EXPECT_HRESULT_FAILED(expression)</code><br>
+<code>EXPECT_HRESULT_FAILED(expression)</code></p>
+<p>위 단언문은 <code>expression</code>이 실패한 <code>HRESULT</code>를 반환하는지 검증합니다.</p>
 <h2 id=death>종료 단언문</h2>
 <p>아래 단언문들은 주어진 코드 조각이 프로세스를 종료시키는지 검증합니다. 이 테스트에 대한 자세한 내용은 <a href=../../advanced/#death-tests>종료 테스트</a> 문단을 참고하시기 바랍니다.</p>
 <p>이 단언문들은 테스트 시 새로운 프로세스를 생성하여 주어진 코드를 실행합니다. 종료테스트의 동작 원리는 동작 플랫폼의 종류에 따라 결정됩니다. 명령행 인자 <code>--gtest_death_test_style</code>로 전달한 설정 <code>::testing::GTEST_FLAG(death_test_style)</code> 변수 값도 동작 방식에 영향을 줍니다.</p>
@@ -449,32 +449,32 @@ c is 10
   <span class=n>DoSomething</span><span class=p>(</span><span class=o>&amp;</span><span class=n>n</span><span class=p>);</span>
 <span class=p>},</span> <span class=s>&#34;Error on line .* of DoSomething()&#34;</span><span class=p>);</span>
 </code></pre></div><h3 id=EXPECT_DEATH>EXPECT_DEATH</h3>
-<p><code>EXPECT_DEATH(</code><em><code>statement</code></em><code>,</code><em><code>matcher</code></em><code>)</code><br>
-<code>ASSERT_DEATH(</code><em><code>statement</code></em><code>,</code><em><code>matcher</code></em><code>)</code></p>
-<p>위 단언문은 구문 <em><code>statement</code></em> 가 프로세스를 0이 아닌 종료상태로 종료시키는지, 그리고 <code>stderr</code>로 출력하는 결과가 일치자 <em><code>matcher</code></em> 의 조건을 만족하는지 검증합니다.</p>
-<p>전달 인자인 <em><code>matcher</code></em> 는 <code>const std::string&</code>에 대한 <a href=../matchers>일치자</a> 혹은 정규표현식이어야 합니다. (<a href=../../advanced/#regular-expression-syntax>정규표현식 문법</a> 참고) 그냥 문자열 <em><code>s</code></em> (일치자 없이)는 <a href=../matchers/#generic-comparison><code>Eq(s)</code></a><em>가 아니라</em> <a href=../matchers/#string-matchers><code>ContainsRegex(s)</code></a>로 취급됩니다.</p>
+<p><code>EXPECT_DEATH(statement, matcher)</code><br>
+<code>ASSERT_DEATH(statement, matcher)</code></p>
+<p>위 단언문은 구문 <code>statement</code>가 프로세스를 0이 아닌 종료상태로 종료시키는지, 그리고 <code>stderr</code>로 출력하는 결과가 일치자 <code>matcher</code>의 조건을 만족하는지 검증합니다.</p>
+<p>전달 인자인 <code>matcher</code>는 <code>const std::string&</code>에 대한 <a href=../matchers>일치자</a> 혹은 정규표현식이어야 합니다. (<a href=../../advanced/#regular-expression-syntax>정규표현식 문법</a> 참고) 그냥 문자열 <code>s</code>(일치자 없이)는 <a href=../matchers/#generic-comparison><code>Eq(s)</code></a><em>가 아니라</em> <a href=../matchers/#string-matchers><code>ContainsRegex(s)</code></a>로 취급됩니다.</p>
 <p>예를 들어 아래 코드는 <code>DoSomething(42)</code>를 호출하면 프로세를 종료시키면서, <code>My error</code>라는 문구를 포함한 오류 메시지를 출력하는지 검증합니다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=n>EXPECT_DEATH</span><span class=p>(</span><span class=n>DoSomething</span><span class=p>(</span><span class=mi>42</span><span class=p>),</span> <span class=s>&#34;My error&#34;</span><span class=p>);</span>
 </code></pre></div><h3 id=EXPECT_DEATH_IF_SUPPORTED>EXPECT_DEATH_IF_SUPPORTED</h3>
-<p><code>EXPECT_DEATH_IF_SUPPORTED(</code><em><code>statement</code></em><code>,</code><em><code>matcher</code></em><code>)</code><br>
-<code>ASSERT_DEATH_IF_SUPPORTED(</code><em><code>statement</code></em><code>,</code><em><code>matcher</code></em><code>)</code></p>
+<p><code>EXPECT_DEATH_IF_SUPPORTED(statement, matcher)</code><br>
+<code>ASSERT_DEATH_IF_SUPPORTED(statement, matcher)</code></p>
 <p>위 단언문은 종료 테스트가 지원되는 경우 <a href=#EXPECT_DEATH><code>EXPECT_DEATH</code></a>와 동일한 역할을 합니다. 종료 테스트가 지원되지 않는다면 아무 일도 일어나지 않습니다.</p>
 <h3 id=EXPECT_DEBUG_DEATH>EXPECT_DEBUG_DEATH</h3>
-<p><code>EXPECT_DEBUG_DEATH(</code><em><code>statement</code></em><code>,</code><em><code>matcher</code></em><code>)</code><br>
-<code>ASSERT_DEBUG_DEATH(</code><em><code>statement</code></em><code>,</code><em><code>matcher</code></em><code>)</code></p>
-<p>위 단언문은 디버그 모드에서 <a href=#EXPECT_DEATH><code>EXPECT_DEATH</code></a>와 동일한 역할을 합니다. 만약 디버그 모드가 아니라면 (예를 들어 <code>NDEBUG</code>가 정의됨) 구문 <em><code>statement</code></em> 만 그냥 실행함.</p>
+<p><code>EXPECT_DEBUG_DEATH(statement, matcher)</code><br>
+<code>ASSERT_DEBUG_DEATH(statement, matcher)</code></p>
+<p>위 단언문은 디버그 모드에서 <a href=#EXPECT_DEATH><code>EXPECT_DEATH</code></a>와 동일한 역할을 합니다. 만약 디버그 모드가 아니라면 (예를 들어 <code>NDEBUG</code>가 정의됨) 구문 <code>statement</code>만 그냥 실행함.</p>
 <h3 id=EXPECT_EXIT>EXPECT_EXIT</h3>
-<p><code>EXPECT_EXIT(</code><em><code>statement</code></em><code>,</code><em><code>predicate</code></em><code>,</code><em><code>matcher</code></em><code>)</code><br>
-<code>ASSERT_EXIT(</code><em><code>statement</code></em><code>,</code><em><code>predicate</code></em><code>,</code><em><code>matcher</code></em><code>)</code></p>
-<p>위 단언문은 구문 <em><code>statement</code></em> 가 <em><code>predicate</code></em> 의 조건을 만족하는 종료 상태로 종료시키는지, 그리고 <code>stderr</code>로 출력하는 결과가 일치자 <em><code>matcher</code></em> 의 조건을 만족하는지 검증합니다.</p>
-<p>전달 인자 <em><code>predicate</code></em> 는 <code>int</code> 종료 상태를 인자로 입력받아 <code>bool</code>을 반환하는 함수 혹은 함수자입니다. GoogleTest에서는 일반적인 경우에 사용할 만한 두가지 서술부를 제공합니다.</p>
+<p><code>EXPECT_EXIT(statement, predicate, matcher)</code><br>
+<code>ASSERT_EXIT(statement, predicate, matcher)</code></p>
+<p>위 단언문은 구문 <code>statement</code>가 <code>predicate</code>의 조건을 만족하는 종료 상태로 종료시키는지, 그리고 <code>stderr</code>로 출력하는 결과가 일치자 <code>matcher</code>의 조건을 만족하는지 검증합니다.</p>
+<p>전달 인자 <code>predicate</code>는 <code>int</code> 종료 상태를 인자로 입력받아 <code>bool</code>을 반환하는 함수 혹은 함수자입니다. GoogleTest에서는 일반적인 경우에 사용할 만한 두가지 서술부를 제공합니다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=c1>// Returns true if the program exited normally with the given exit status code.
 </span><span class=c1></span><span class=o>::</span><span class=n>testing</span><span class=o>::</span><span class=n>ExitedWithCode</span><span class=p>(</span><span class=n>exit_code</span><span class=p>);</span>
 
 <span class=c1>// Returns true if the program was killed by the given signal.
 </span><span class=c1>// Not available on Windows.
 </span><span class=c1></span><span class=o>::</span><span class=n>testing</span><span class=o>::</span><span class=n>KilledBySignal</span><span class=p>(</span><span class=n>signal_number</span><span class=p>);</span>
-</code></pre></div><p>전달 인자인 <em><code>matcher</code></em> 는 <code>const std::string&</code>에 대한 <a href=../matchers>일치자</a> 혹은 정규표현식이어야 합니다. (<a href=../../advanced/#regular-expression-syntax>정규표현식 문법</a> 참고) 그냥 문자열 <em><code>s</code></em> (일치자 없이)는 <a href=../matchers/#generic-comparison><code>Eq(s)</code></a><em>가 아니라</em> <a href=../matchers/#string-matchers><code>ContainsRegex(s)</code></a>로 취급됩니다.</p>
+</code></pre></div><p>전달 인자인 <code>matcher</code>는 <code>const std::string&</code>에 대한 <a href=../matchers>일치자</a> 혹은 정규표현식이어야 합니다. (<a href=../../advanced/#regular-expression-syntax>정규표현식 문법</a> 참고) 그냥 문자열 <code>s</code>(일치자 없이)는 <a href=../matchers/#generic-comparison><code>Eq(s)</code></a><em>가 아니라</em> <a href=../matchers/#string-matchers><code>ContainsRegex(s)</code></a>로 취급됩니다.</p>
 <p>예를 들어 아래 코드는 <code>NormalExit()</code>을 호출하면 <code>stderr</code>에 <code>Success</code>가 포함된 메시지를 출력하면서, 종료상태 0으로 프로세스를 종료시키는지 검증합니다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=n>EXPECT_EXIT</span><span class=p>(</span><span class=n>NormalExit</span><span class=p>(),</span> <span class=n>testing</span><span class=o>::</span><span class=n>ExitedWithCode</span><span class=p>(</span><span class=mi>0</span><span class=p>),</span> <span class=s>&#34;Success&#34;</span><span class=p>);</span>
 </code></pre></div><h2 id=번역-관련-주석-원문에-존재하지-않음>번역 관련 주석 (원문에 존재하지 않음)</h2>
