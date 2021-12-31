@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://devlog.jsyoo5b.net/ko/posts/golang/musthave/ch06/">
 <meta property="og:type" content="article">
 <meta property="og:description" content="Blog of JaeSang Yoo, the programmer.">
-<meta name=generator content="Hugo 0.88.1">
+<meta name=generator content="Hugo 0.91.2">
 <meta name=msapplication-TileColor content="#fff">
 <meta name=theme-color content="#fff">
 <meta name=msapplication-navbutton-color content="#fff">
@@ -210,7 +210,7 @@ kimbie
 <script>'use strict';var containerId=JSON.parse('"513f8180e2e9f0c6"'),containerElem=document.getElementById(containerId),codetabLinks=null,codetabContents=null,ids=[],i;containerElem&&(codetabLinks=containerElem.querySelectorAll('.codetab__link'),codetabContents=containerElem.querySelectorAll('.codetab__content'));for(i=0;i<codetabContents.length;i++)ids=ids.concat(codetabContents[i].getAttribute('id')),codetabContents[i].style.display='none',0===parseInt(i,10)&&!codetabContents[i].classList.contains('active')&&codetabContents[i].classList.add('active');for(i=0;i<codetabLinks.length;i++)codetabLinks[i].setAttribute('id',ids[i]),0===parseInt(i,10)&&!codetabLinks[i].classList.contains('active')?codetabLinks[i].classList.add('active'):codetabLinks[i].classList.remove('active');codetabContents.length>0&&(codetabContents[0].style.display='block')</script>
 <h3 id=bit-clear-연산자>Bit clear 연산자</h3>
 <p>비트 연산에서 <code>A ∧ ¬B(A AND NOT B)</code>를 수행하면 A에서 B에 선택된 비트들만 0으로 clear한다. Go 언어에서는 <code>&^(AND-NOT)</code>을 연산자 단위로 취급, 제공한다.</p>
-<div id=a544cc38c70a9f40 class=codetab>
+<div id=963f580b5dc0b816 class=codetab>
 <div class=codetab__links>
 <button class=codetab__link aria-label="Tab link">go 코드</button>
 <button class=codetab__link aria-label="Tab link">실행 결과</button>
@@ -238,8 +238,8 @@ kimbie
 <span class=kn>import</span> <span class=s>&#34;fmt&#34;</span>
 
 <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
-    <span class=kd>var</span> <span class=nx>flags</span> <span class=kt>uint8</span> <span class=p>=</span> <span class=mi>0</span><span class=nx>b_11001100</span>
-    <span class=kd>var</span> <span class=nx>clears</span> <span class=kt>uint8</span> <span class=p>=</span> <span class=mi>0</span><span class=nx>b_01100110</span> 
+    <span class=kd>var</span> <span class=nx>flags</span> <span class=kt>uint8</span> <span class=p>=</span> <span class=mb>0b_11001100</span>
+    <span class=kd>var</span> <span class=nx>clears</span> <span class=kt>uint8</span> <span class=p>=</span> <span class=mb>0b_01100110</span> 
 
     <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;%b\n&#34;</span><span class=p>,</span> <span class=nx>flags</span><span class=p>)</span>
     <span class=nx>flags</span> <span class=o>&amp;^=</span> <span class=nx>clears</span>
@@ -257,11 +257,11 @@ kimbie
 </code></pre></div>
 </div>
 </div>
-<script>'use strict';var containerId=JSON.parse('"a544cc38c70a9f40"'),containerElem=document.getElementById(containerId),codetabLinks=null,codetabContents=null,ids=[],i;containerElem&&(codetabLinks=containerElem.querySelectorAll('.codetab__link'),codetabContents=containerElem.querySelectorAll('.codetab__content'));for(i=0;i<codetabContents.length;i++)ids=ids.concat(codetabContents[i].getAttribute('id')),codetabContents[i].style.display='none',0===parseInt(i,10)&&!codetabContents[i].classList.contains('active')&&codetabContents[i].classList.add('active');for(i=0;i<codetabLinks.length;i++)codetabLinks[i].setAttribute('id',ids[i]),0===parseInt(i,10)&&!codetabLinks[i].classList.contains('active')?codetabLinks[i].classList.add('active'):codetabLinks[i].classList.remove('active');codetabContents.length>0&&(codetabContents[0].style.display='block')</script>
+<script>'use strict';var containerId=JSON.parse('"963f580b5dc0b816"'),containerElem=document.getElementById(containerId),codetabLinks=null,codetabContents=null,ids=[],i;containerElem&&(codetabLinks=containerElem.querySelectorAll('.codetab__link'),codetabContents=containerElem.querySelectorAll('.codetab__content'));for(i=0;i<codetabContents.length;i++)ids=ids.concat(codetabContents[i].getAttribute('id')),codetabContents[i].style.display='none',0===parseInt(i,10)&&!codetabContents[i].classList.contains('active')&&codetabContents[i].classList.add('active');for(i=0;i<codetabLinks.length;i++)codetabLinks[i].setAttribute('id',ids[i]),0===parseInt(i,10)&&!codetabLinks[i].classList.contains('active')?codetabLinks[i].classList.add('active'):codetabLinks[i].classList.remove('active');codetabContents.length>0&&(codetabContents[0].style.display='block')</script>
 <h3 id=shift-연산자>Shift 연산자</h3>
 <p>Shift 연산이 2의 제곱에 대한 곱셈, 나눗셈 역할을 하는 것은 알고 있었다. 하지만 오른쪽 shift시 채워지는 값이 양수/음수에 따라 다르다는 것은 처음 알았다.</p>
 <p>Go 언어만 그런 것인지, 다른 언어에서도 당연한 것인지 확인해보자.</p>
-<div id=c8eb6d420353445f class=codetab>
+<div id=07387b958d8754c2 class=codetab>
 <div class=codetab__links>
 <button class=codetab__link aria-label="Tab link">go 코드</button>
 <button class=codetab__link aria-label="Tab link">C 코드</button>
@@ -289,7 +289,7 @@ kimbie
 <span class=kn>import</span> <span class=s>&#34;fmt&#34;</span>
 
 <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
-	<span class=kd>var</span> <span class=nx>num1</span> <span class=kt>uint8</span> <span class=p>=</span> <span class=mi>0</span><span class=nx>b_11001100</span>
+	<span class=kd>var</span> <span class=nx>num1</span> <span class=kt>uint8</span> <span class=p>=</span> <span class=mb>0b_11001100</span>
 
 	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;0x%X\n&#34;</span><span class=p>,</span> <span class=nx>num1</span> <span class=o>&gt;&gt;</span> <span class=mi>2</span><span class=p>)</span>
 	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;0x%X\n&#34;</span><span class=p>,</span> <span class=nb>uint8</span><span class=p>(</span><span class=nb>int8</span><span class=p>(</span><span class=nx>num1</span><span class=p>)</span> <span class=o>&gt;&gt;</span> <span class=mi>2</span><span class=p>))</span>
@@ -366,7 +366,7 @@ $ java java_shr
 </code></pre></div>
 </div>
 </div>
-<script>'use strict';var containerId=JSON.parse('"c8eb6d420353445f"'),containerElem=document.getElementById(containerId),codetabLinks=null,codetabContents=null,ids=[],i;containerElem&&(codetabLinks=containerElem.querySelectorAll('.codetab__link'),codetabContents=containerElem.querySelectorAll('.codetab__content'));for(i=0;i<codetabContents.length;i++)ids=ids.concat(codetabContents[i].getAttribute('id')),codetabContents[i].style.display='none',0===parseInt(i,10)&&!codetabContents[i].classList.contains('active')&&codetabContents[i].classList.add('active');for(i=0;i<codetabLinks.length;i++)codetabLinks[i].setAttribute('id',ids[i]),0===parseInt(i,10)&&!codetabLinks[i].classList.contains('active')?codetabLinks[i].classList.add('active'):codetabLinks[i].classList.remove('active');codetabContents.length>0&&(codetabContents[0].style.display='block')</script>
+<script>'use strict';var containerId=JSON.parse('"07387b958d8754c2"'),containerElem=document.getElementById(containerId),codetabLinks=null,codetabContents=null,ids=[],i;containerElem&&(codetabLinks=containerElem.querySelectorAll('.codetab__link'),codetabContents=containerElem.querySelectorAll('.codetab__content'));for(i=0;i<codetabContents.length;i++)ids=ids.concat(codetabContents[i].getAttribute('id')),codetabContents[i].style.display='none',0===parseInt(i,10)&&!codetabContents[i].classList.contains('active')&&codetabContents[i].classList.add('active');for(i=0;i<codetabLinks.length;i++)codetabLinks[i].setAttribute('id',ids[i]),0===parseInt(i,10)&&!codetabLinks[i].classList.contains('active')?codetabLinks[i].classList.add('active'):codetabLinks[i].classList.remove('active');codetabContents.length>0&&(codetabContents[0].style.display='block')</script>
 <p>Go 언어만이 아니라 모든 언어에서 동일한 결과가 확인되었다.</p>
 <h3 id=nextafter>NextAfter</h3>
 <p>컴퓨터에서 실수 연산 처리에는 오차가 수반된다. 해당 문제를 해결할 수 있도록 Go에서는 다음 비트 값의 실수를 얻는 <code>NextAfter()</code> 함수를 제공한다.</p>
