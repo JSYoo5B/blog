@@ -441,7 +441,7 @@ c is 10
 </li>
 <li>Windows에서는 <code>CreateProcess()</code> API를 통해 자식 프로세스가 생성됩니다. POSIX 시스템에서 <code>"threadsafe"</code> 모드로 실행한 것과 같이 동작합니다. (현재 실행파일을 다시 실행하여 종료 테스트가 동시에 하나만 실행될 수 있도록)</li>
 </ul>
-<p><code>::testing::GTEST_FLAG(death_test_style)</code>의 기본 값은 **<code>"fast"</code>**이며, 위에서 설명하지 않은 값으로 설정될 경우, 종료 테스트를 실패하게 합니다.</p>
+<p><code>::testing::GTEST_FLAG(death_test_style)</code>의 기본 값은 <code>"fast"</code>이며, 위에서 설명하지 않은 값으로 설정될 경우, 종료 테스트를 실패하게 합니다.</p>
 <p>만약 종료 테스트 구문이 종료되지 않고 정상적으로 실행되더라도, 자식 프로세스는 결국에는 종료될 것이며 해당 단언문은 실패한 것으로 간주됩니다.</p>
 <p>아래 설명에서 테스트 인자로 전달되는 코드 조각은 여러 구문의 혼합(compound statement)일 수 있습니다. 아래 예시를 참고하시기 바랍니다.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=n>EXPECT_DEATH</span><span class=p>({</span>
